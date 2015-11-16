@@ -1,4 +1,4 @@
 node_modules/*
-public/lib
+lib
 .publish
 dist
