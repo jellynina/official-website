@@ -1,0 +1,28 @@
+{
+  "name": "tdi-web",
+  "description": "TDI official website",
+  "main": "index.js",
+  "authors": [
+    "Nina Lee"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "one",
+    "page",
+    "full",
+    "page"
+  ],
+  "homepage": "https://github.com/jellynina/official-website",
+  "moduleType": [
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ]
+}
