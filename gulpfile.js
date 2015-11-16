@@ -8,15 +8,16 @@ var gulp = require('gulp'),
   maps   = require('gulp-sourcemaps'),
   del    = require('del');
 
+
 gulp.task("concatScripts", function () {
   return gulp.src([
-    'js/jquery.js',
-    'js/sticky/jquery.sticky.js',
+    'lib/jquery/dist/jquery.js',
+    'lib/fullpage.js/jquery.fullPage.min.js',
     'js/main.js'])
   .pipe(maps.init())
   .pipe(concat("app.js")) // 把上面的js file 串近 app.js
   .pipe(maps.write('./'))
-  .pipe(gulp.dest("js")) //app.js 放到某個位置(js資料夾裡面)
+  .pipe(gulp.dest("dist/js")) //app.js 放到某個位置(js資料夾裡面)
 });
 
 // 任務有相依性
@@ -28,11 +29,11 @@ gulp.task("minifyScripts", ["concatScripts"], function (){
 });
 
 gulp.task("compileSass", function (){
-  return gulp.src("scss/application.scss")
+  return gulp.src("sass/style.scss")
   .pipe(maps.init())
   .pipe(sass())
   .pipe(maps.write('./')) //this path is going to be relative to our output directory ??
-  .pipe(gulp.dest("css"));
+  .pipe(gulp.dest("dist/css"));
 });
 
 gulp.task('watch', function (){
