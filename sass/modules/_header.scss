@@ -1,0 +1,12 @@
+.header-top {
+  background: rgba(0, 47, 77, .3);
+  height: 70px;
+  padding: 0 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 12;
+  box-sizing: border-box;
+
+  /* mobile 使用 toggle */
+}
