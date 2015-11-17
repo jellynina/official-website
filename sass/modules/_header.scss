@@ -1,5 +1,5 @@
 .header-top {
-  background: rgba(0, 47, 77, .3);
+  background: transparent;
   height: 70px;
   padding: 0 10px;
   position: fixed;
@@ -9,4 +9,21 @@
   box-sizing: border-box;
 
   /* mobile 使用 toggle */
+}
+
+.nav-menu{
+  display: block;
+  margin: 5px auto;
+  text-align: center;
+  li{
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    margin: .3em 1.2em;
+  }
+
+  a{
+    display: block;
+    padding: .5em;
+  }
 }

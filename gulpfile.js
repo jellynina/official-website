@@ -37,16 +37,18 @@ gulp.task("compileSass", function (){
 });
 
 gulp.task('watch', function (){
-  gulp.watch('scss/**/*.scss', ['compileSass']);
+  gulp.watch('sass/**/*.scss', ['compileSass']);
   gulp.watch('js/main.js', ['concatScripts']);
 });
 
-gulp.task('clean', function(){
-  del(['dist','css/application.css*','js/app.*.js*' ]);
-})
+gulp.task('serve', ['compileSass', 'watch']);
 
-gulp.task("build", ['minifyScripts', 'compileSass'], function (){
-  return gulp.src(["css/application.css", "js/app.min.js", 'index.html',
+// gulp.task('clean', function(){
+//   del(['dist' ]);
+// })
+
+gulp.task("build", ['concatScripts', 'compileSass'], function (){
+  return gulp.src(['index.html',
                    "img/**", "fonts/**"], { base: './'})
             .pipe(gulp.dest('dist'));
 });

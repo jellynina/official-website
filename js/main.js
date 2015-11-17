@@ -11,7 +11,7 @@ $(document).ready(function (){
   });
 
   $('#fullpage').fullpage({
-    sectionsColor: ['#B8AE9C', '#348899', '#F2AE72', '#5C832F', '#B8B89F'],
+    sectionsColor: ['#B8AE9C', '#348899', '#F2AE72', '#5C832F', '#fff'],
     sectionSelector: '.vertical-scrolling',
     slideSelector: '.horizontal-scrolling',
     navigation: true,
@@ -21,13 +21,13 @@ $(document).ready(function (){
     anchors: ['firstSection', 'secondSection', 'thirdSection', 'fourthSection', 'fifthSection'],
     menu: '#menu',
 
-    afterLoad: function(anchorLink, index) {
-      $header_top.css('background', 'rgba(0, 47, 77, .3)');
-      $nav.css('background', 'rgba(0, 47, 77, .25)');
-      if (index == 5) {
-          $('#fp-nav').hide();
-        }
-    },
+    // afterLoad: function(anchorLink, index) {
+    //   $header_top.css('background', 'rgba(0, 47, 77, .3)');
+    //   $nav.css('background', 'rgba(0, 47, 77, .25)');
+    //   if (index == 5) {
+    //       $('#fp-nav').hide();
+    //     }
+    // },
 
     onLeave: function(index, nextIndex, direction) {
       if(index == 5) {
