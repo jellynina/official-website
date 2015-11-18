@@ -1,0 +1,17 @@
+// Media queries
+
+@mixin mq($break) {
+  @if $break == "mobile" {
+    @media screen and (max-width: $MQ-mobile){
+      @content;
+    }
+  }
+  @else if $break == "tab" {
+    @media screen and (max-width: $MQ-tab) {
+      @content;
+    }
+  }
+   @else {
+    @error "No value could be retrieved for `#{$break}`. "
+  }
+}

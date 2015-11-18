@@ -3,10 +3,11 @@ $(document).ready(function (){
 
   // variables
   var $header_top = $('.header-top');
+  var $toggle_menu = $('.toggle-menu');
   var $nav = $('nav');
 
   // toggle menu 
-  $header_top.find('a').on('click', function() {
+  $toggle_menu.on('click', function() {
     $(this).parent().toggleClass('open-menu');
   });
 

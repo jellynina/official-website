@@ -7,16 +7,32 @@ $k_logo: 90px / 67px ;
   width: $k_logo * $height;
 }
 
-.logo{
+.tdi-logo{
   @include logoSize(48px);
   display: inline-block;
   background: url('../img/TDI-Logo.svg') no-repeat 50% 50%;
-  background-size: cover;
+  background-size: cover;  
+}
 
-  /* with coloring */
+.logo{
+
 
   &.white{
     -webkit-filter: grayscale(100%) brightness(5);
     filter: grayscale(100%) brightness(5);
+  }
+}
+
+.mobile-logo{
+  position: relative;
+  top: 10px;
+  width: 50px;
+  height: 50px;
+  @include box-sizing(border-box);
+  .logo{
+    @include logoSize(28px);
+    display: block;
+    margin: 0 auto;
+    padding-top: 10px;
   }
 }

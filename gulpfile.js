@@ -51,9 +51,9 @@ gulp.task('watch', function (){
   gulp.watch('./index.html', ['build']);
 });
 
-gulp.task('serve', ['compileSass', 'watch'], function (){
+gulp.task('serve', ['watch'], function (){
   connect.server({
-    root: 'src',
+    root: 'dist',
     port: 8080,
     livereload: true
   });

@@ -23,3 +23,17 @@ a {
 ul, li {
   list-style-type: none;
 }
+
+@media screen and (max-width: $MQ-mobile) {
+  html {
+    font-size: 50%;
+  }
+  
+  .open-menu ~ nav {
+    padding: 20px 0;
+  }
+
+  nav li a {
+    padding: 3px;
+  }
+}

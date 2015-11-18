@@ -1,3 +1,12 @@
 .is-mobile{
   display: none;
+  @media screen and (max-width: $MQ-mobile){
+    display: initial;
+  }
+}
+
+.is-desk{
+  @media screen and (max-width: $MQ-mobile){
+    display: none;
+  }  
 }
