@@ -6,7 +6,8 @@
   top: 0;
   width: 100%;
   z-index: 12;
-  box-sizing: border-box;
+  // box-sizing: border-box;
+  @include box-sizing(border-box);
 
   /* mobile 使用 toggle */
 }

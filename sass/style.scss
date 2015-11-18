@@ -1,7 +1,12 @@
-@import "lib/fullpage.js/jquery.fullPage.scss";
+/* fullpage.js */
+@import "../lib/fullpage.js/jquery.fullPage.scss";
+
+@import "compass";
 
 @import "utilities/index";
 
 @import "modules/index";
 
 @import "status/index";
+
+/* note */

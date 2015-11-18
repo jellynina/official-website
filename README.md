@@ -15,3 +15,8 @@ TDI website
 ## Svg
 
 [read](http://codepen.io/noahblon/post/coloring-svgs-in-css-background-images)
+
+
+## gulp connect
+
+live re-load

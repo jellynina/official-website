@@ -1,12 +1,14 @@
 'use strict';
 
-var gulp = require('gulp'),
-  concat = require('gulp-concat'),
-  uglify = require('gulp-uglify'),
-  rename = require('gulp-rename'),
-  sass   = require('gulp-sass'),
-  maps   = require('gulp-sourcemaps'),
-  del    = require('del');
+var gulp  = require('gulp'),
+  concat  = require('gulp-concat'),
+  uglify  = require('gulp-uglify'),
+  rename  = require('gulp-rename'),
+  sass    = require('gulp-sass'),
+  compass = require('gulp-compass'),
+  maps    = require('gulp-sourcemaps'),
+  connect = require('gulp-connect'),
+  del     = require('del');
 
 
 gulp.task("concatScripts", function () {
@@ -25,23 +27,37 @@ gulp.task("minifyScripts", ["concatScripts"], function (){
   return gulp.src("js/app.js")
     .pipe(uglify())
     .pipe(rename('app.min.js'))
-    .pipe(gulp.dest("js"));
+    .pipe(gulp.dest("js"))
+    .pipe(connect.reload());
 });
 
 gulp.task("compileSass", function (){
   return gulp.src("sass/style.scss")
   .pipe(maps.init())
-  .pipe(sass())
+  // .pipe(sass())
+  .pipe(compass({
+    sass: 'sass',
+    image: 'img',
+    import_path: ['lib']
+  }))
   .pipe(maps.write('./')) //this path is going to be relative to our output directory ??
-  .pipe(gulp.dest("dist/css"));
+  .pipe(gulp.dest("dist/css"))
+  .pipe(connect.reload());
 });
 
 gulp.task('watch', function (){
   gulp.watch('sass/**/*.scss', ['compileSass']);
   gulp.watch('js/main.js', ['concatScripts']);
+  gulp.watch('./index.html', ['build']);
 });
 
-gulp.task('serve', ['compileSass', 'watch']);
+gulp.task('serve', ['compileSass', 'watch'], function (){
+  connect.server({
+    root: 'src',
+    port: 8080,
+    livereload: true
+  });
+});
 
 // gulp.task('clean', function(){
 //   del(['dist' ]);
