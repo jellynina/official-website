@@ -17,6 +17,20 @@ h3 {
   font-size: 2.8em;
 }
 
+.wrap{
+  width: 1180px;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+.box{
+  text-align: left;
+  color: #808080;
+  font-size: 1.2em;
+  line-height: 1.6em;
+}
+
 #section-contact{
   background: url(../img/BG-5.png) no-repeat center / cover; 
   h2{

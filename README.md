@@ -20,3 +20,14 @@ TDI website
 ## gulp connect
 
 live re-load
+
+
+# img license
+
+```html
+<a href='http://www.freepik.com/free-vector/variety-of-monuments_803491.htm'>Designed by Freepik</a>
+```
+
+```
+<a target="_blank" href="https://www.vectoropenstock.com/vectors/preview/73217/rome-skyline-painted-flag"> Rome skyline painted flag </a> | Free vector by <a target="_blank" href="https://www.vectoropenstock.com/">Vector Open Stock</a>
+```

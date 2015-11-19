@@ -39,5 +39,8 @@
   a{
     display: block;
     padding: .5em;
+    @include mq("mobile") {
+      font-size: 3em;
+    }
   }
 }

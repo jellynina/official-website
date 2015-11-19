@@ -22,13 +22,11 @@ $(document).ready(function (){
     anchors: ['firstSection', 'secondSection', 'thirdSection', 'fourthSection', 'fifthSection'],
     menu: '#menu',
 
-    // afterLoad: function(anchorLink, index) {
-    //   $header_top.css('background', 'rgba(0, 47, 77, .3)');
-    //   $nav.css('background', 'rgba(0, 47, 77, .25)');
-    //   if (index == 5) {
-    //       $('#fp-nav').hide();
-    //     }
-    // },
+    afterLoad: function(anchorLink, index) {
+      if (index == 4) {
+          $('#fp-nav').hide();
+        }
+    },
 
     onLeave: function(index, nextIndex, direction) {
       if(index == 5) {
@@ -37,7 +35,7 @@ $(document).ready(function (){
     },
 
     afterSlideLoad: function( anchorLink, index, slideAnchor, slideIndex) {
-      if(anchorLink == 'fifthSection' && slideIndex == 1) {
+      if(anchorLink == 'fourthSection' && slideIndex == 1) {
         $.fn.fullpage.setAllowScrolling(false, 'up');
         $header_top.css('background', 'transparent');
         $nav.css('background', 'transparent');

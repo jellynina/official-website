@@ -242,7 +242,6 @@ html.fp-enabled,
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Alegreya Sans', Arial, sans-serif;
 }
 
 html {
@@ -261,6 +260,13 @@ a {
 
 ul, li {
   list-style-type: none;
+}
+
+img {
+  -moz-transition: all 0.7s ease-out;
+  -o-transition: all 0.7s ease-out;
+  -webkit-transition: all 0.7s ease-out;
+  transition: all 0.7s ease-out;
 }
 
 @media screen and (max-width: 530px) {
@@ -306,6 +312,24 @@ ul, li {
   transition: opacity, transform 1s;
   -webkit-transition-delay: 1s;
   transition-delay: 1s;
+}
+
+@font-face {
+  font-family: FontWithChinese;
+  src: local(Heiti TC), local("微軟正黑體");
+  /* no unicode-range; default to all characters */
+}
+/* Latin characters 專用 */
+@font-face {
+  font-family: FontWithChinese;
+  /* 同樣的 font-family */
+  unicode-range: U+00-024F;
+  /* Latin, Latin1 Sup., Ext-A, Ext-B */
+  src: url(http://fonts.googleapis.com/css?family=Alegreya+Sans:300,400,700), local(Helvetica), local(Arial);
+  /* Other OS */
+}
+body {
+  font-family: FontWithChinese, Arial, sans-serif;
 }
 
 .header-top {
@@ -354,6 +378,11 @@ ul, li {
 .nav-menu a {
   display: block;
   padding: .5em;
+}
+@media screen and (max-width: 530px) {
+  .nav-menu a {
+    font-size: 3em;
+  }
 }
 
 .toggle-menu {
@@ -426,6 +455,21 @@ h3 {
   font-size: 2.8em;
 }
 
+.wrap {
+  width: 1180px;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.box {
+  text-align: left;
+  color: #808080;
+  font-size: 1.2em;
+  line-height: 1.6em;
+}
+
 #section-contact {
   background: url(../img/BG-5.png) no-repeat center/cover;
 }
@@ -459,8 +503,8 @@ h3 {
 }
 
 .tdi-logo {
-  height: 48px;
-  width: 64.47761px;
+  height: 36px;
+  width: 48.35821px;
   display: inline-block;
   background: url("../img/TDI-Logo.svg") no-repeat 50% 50%;
   background-size: cover;
