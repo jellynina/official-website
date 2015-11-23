@@ -3,12 +3,20 @@ $(document).ready(function (){
 
   // variables
   var $header_top = $('.header-top');
+  var $mobile_header = $('.header-top .is-mobile');
+  var $mobile_menu = $('.nav-menu .is-mobile');
   var $toggle_menu = $('.toggle-menu');
   var $nav = $('nav');
 
   // toggle menu 
   $toggle_menu.on('click', function() {
-    $(this).parent().toggleClass('open-menu');
+    $mobile_header.toggleClass('open-menu');
+    $('#fullpage').toggleClass('filter-blur');
+  });
+
+  $mobile_menu.find('a').on('click', function (){
+    $mobile_header.toggleClass('open-menu');
+    $('#fullpage').toggleClass('filter-blur');  
   });
 
   $('#fullpage').fullpage({

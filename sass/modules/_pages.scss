@@ -5,6 +5,7 @@ section {
   text-align: center;
   background-image: linear-gradient(-214deg, #B4C881 0%, #38A59F 100%);
   overflow: hidden;
+  z-index: 5;
 }
 
 h2 {
@@ -57,7 +58,7 @@ h3 {
     margin-top: 50px;
     margin-left: 10px;
     width: 500px;
-    z-index: 1;
+    z-index: 10;
 
     @include mq("mobile") {
       @include boxMobile;
@@ -66,7 +67,7 @@ h3 {
   .imgsContainer{
     display: block;
     position: absolute;
-    z-index: 1;
+    z-index: 10;
     top: 42%;
     left: 58%;
     margin-top: -325px;
@@ -87,7 +88,7 @@ h3 {
   .imgsContainer{
     position:absolute;
     bottom: 0;
-    z-index: 1;
+    z-index: 10;
   }
 
   .box{
@@ -95,7 +96,7 @@ h3 {
     width: 55%;
     right: 5%;
     margin-top: 90px;
-    z-index: 2;
+    z-index: 20;
     color: #FFFFFF;
   }
 
@@ -111,14 +112,14 @@ h3 {
     width: 55%;
     left: 5%;
     margin-top: 120px;
-    z-index: 2;
+    z-index: 20;
     color: #FFFFFF;
   }
   .imgsContainer{
     position:absolute;
     bottom: 0;
     right: 0;
-    z-index: 1;
+    z-index: 10;
   }
 
 }

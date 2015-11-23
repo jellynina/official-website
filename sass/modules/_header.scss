@@ -18,16 +18,19 @@
   text-align: center;
   @include text-shadow(rgba(#000, 0.5) 1px 1px 2px, rgba(#000, 0.7) 0 .5px .5px);
   @include mq("mobile") {
+    
     height: 0;
     opacity: 0;
-    @include transition(all, 3s);   
+    @include background-image(linear-gradient(0deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.60) 100%));
+    @include transition(all, 1.5s);   
   }
+
+
   .is-desk{
     li{
       a{
         opacity: .8;
         @include transition(all, 1s, ease-in-out);
-        // @include single-transition(font-size, 1.5s, ease-in-out);       
       }
 
       &:hover a{
@@ -59,4 +62,8 @@
       font-size: 3em;
     }
   }
+}
+
+.filter-blur{
+  @include filter(blur(3px));
 }
