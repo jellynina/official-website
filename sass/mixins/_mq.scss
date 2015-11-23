@@ -15,3 +15,12 @@
     @error "No value could be retrieved for `#{$break}`. "
   }
 }
+
+@mixin boxMobile {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  left: 0;
+  top: 75px;  
+}

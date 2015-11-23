@@ -350,6 +350,7 @@ body {
   display: block;
   margin: 5px auto;
   text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 2px, rgba(0, 0, 0, 0.7) 0 0.5px 0.5px;
 }
 @media screen and (max-width: 530px) {
   .nav-menu {
@@ -360,6 +361,18 @@ body {
     -webkit-transition: all, 3s;
     transition: all, 3s;
   }
+}
+.nav-menu .is-desk li a {
+  opacity: .8;
+  -moz-transition: all, 1s, ease-in-out;
+  -o-transition: all, 1s, ease-in-out;
+  -webkit-transition: all, 1s, ease-in-out;
+  transition: all, 1s, ease-in-out;
+}
+.nav-menu .is-desk li:hover a {
+  text-shadow: rgba(0, 0, 0, 0.8) 1px 1px 1px, rgba(0, 0, 0, 0.9) 0 0.5px 0.5px;
+  opacity: 1;
+  font-size: 15px;
 }
 .nav-menu li {
   display: inline-block;
@@ -443,20 +456,28 @@ body {
 section {
   text-align: center;
   background-image: linear-gradient(-214deg, #b4c881 0%, #38a59f 100%);
+  overflow: hidden;
 }
 
 h2 {
   font-size: 4em;
   margin-bottom: 20px;
 }
+@media screen and (max-width: 530px) {
+  h2 {
+    font-size: 2.5em;
+  }
+}
 
 h3 {
   font-weight: 300;
-  font-size: 2.8em;
+  font-size: 2em;
+  line-height: 1.3;
 }
 
 .wrap {
-  width: 1180px;
+  max-width: 1180px;
+  width: 95%;
   height: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -464,10 +485,105 @@ h3 {
 }
 
 .box {
-  text-align: left;
-  color: #808080;
+  font-size: 14px;
+}
+.box p {
   font-size: 1.2em;
-  line-height: 1.6em;
+  text-align: justify;
+}
+
+/* SECTION EACH
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+#home {
+  background: #c2e59c;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #c2e59c, #64b3f4);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #c2e59c, #64b3f4);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+#home img {
+  position: absolute;
+  left: 40px;
+  top: 100px;
+}
+#home .box {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  margin-top: 50px;
+  margin-left: 10px;
+  width: 500px;
+  z-index: 1;
+}
+@media screen and (max-width: 530px) {
+  #home .box {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    left: 0;
+    top: 75px;
+  }
+}
+#home .imgsContainer {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  top: 42%;
+  left: 58%;
+  margin-top: -325px;
+  margin-left: -747px;
+  width: 800px;
+  height: 696px;
+}
+#home img {
+  height: 100%;
+}
+
+#about {
+  background: #1A2980;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #1A2980, #26D0CE);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #1a2980, #26d0ce);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+#about .imgsContainer {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+}
+#about .box {
+  position: absolute;
+  width: 55%;
+  right: 5%;
+  margin-top: 90px;
+  z-index: 2;
+  color: #FFFFFF;
+}
+
+#service {
+  background: #AA076B;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #AA076B, #61045F);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #aa076b, #61045f);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+#service .box {
+  position: absolute;
+  width: 55%;
+  left: 5%;
+  margin-top: 120px;
+  z-index: 2;
+  color: #FFFFFF;
+}
+#service .imgsContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
 }
 
 #section-contact {
@@ -482,6 +598,10 @@ h3 {
 
 /* SLIDENAV STYLES - fullPage.js 
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.fp-controlArrow {
+  opacity: .5;
+}
+
 #fp-nav ul li a span,
 .fp-slidesNav ul li a span {
   background: white;
@@ -502,12 +622,40 @@ h3 {
   border: 1px solid #24221F;
 }
 
+.horizontal-scrolling {
+  position: relative;
+}
+.horizontal-scrolling .box {
+  font-size: 55%;
+  width: 100%;
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  text-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px;
+  color: #FFF;
+}
+
+#slide-1 {
+  background: url("../img/gallery-sea1.jpg") no-repeat center/cover;
+}
+
+#slide-2 {
+  background: url("../img/gallery-sea2.jpg") no-repeat center/cover;
+}
+
+#slide-3 {
+  background: url("../img/gallery-cks.jpg") no-repeat center/cover;
+}
+
 .tdi-logo {
+  /* in desktop */
   height: 36px;
   width: 48.35821px;
   display: inline-block;
   background: url("../img/TDI-Logo.svg") no-repeat 50% 50%;
   background-size: cover;
+  -webkit-filter: drop-shadow(#ccc 1px 1px 0px);
+  filter: drop-shadow(#ccc 1px 1px 0px);
 }
 
 .logo.white {
@@ -563,6 +711,60 @@ button:focus {
   display: block;
   margin: 1.2em auto;
   width: 50%;
+}
+
+#staticImg {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  top: 200%;
+  left: 0;
+  width: 100%;
+  min-width: 980px;
+  height: 100%;
+  -moz-transition: all 0.7s ease-out;
+  -o-transition: all 0.7s ease-out;
+  -webkit-transition: all 0.7s ease-out;
+  transition: all 0.7s ease-out;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+}
+#staticImg.moveDown {
+  -webkit-transform: translate3d(0, 100%, 0);
+  -ms-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
+#staticImg.moveUp {
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+#staticImg.moveDown .imgsContainer {
+  top: 50%;
+}
+#staticImg.moveDown img {
+  top: 155px;
+}
+#staticImg.active .imgsContainer {
+  top: 50%;
+}
+#staticImg.active img {
+  top: 487px;
+}
+#staticImg .imgsContainer {
+  -moz-transition: all 1.2s ease-in-out;
+  -o-transition: all 1.2s ease-in-out;
+  -webkit-transition: all 1.2s ease-in-out;
+  transition: all 1.2s ease-in-out;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  display: block;
+  margin-top: -288px;
+  margin-left: -636px;
+  width: 0;
+  height: 0;
+  top: 90%;
 }
 
 .is-mobile {

@@ -18,11 +18,12 @@ $(document).ready(function (){
     navigation: true,
     slidesNavigation: true,
     css3: true,
-    controlArrows: false,
+    controlArrows: true,
     anchors: ['firstSection', 'secondSection', 'thirdSection', 'fourthSection', 'fifthSection'],
     menu: '#menu',
 
     afterLoad: function(anchorLink, index) {
+      /* no side fp-nav in gallery */
       if (index == 4) {
           $('#fp-nav').hide();
         }
@@ -58,6 +59,6 @@ $(document).ready(function (){
         $header_top.css('background', 'rgba(0, 47, 77, .3)');
         $nav.css('background', 'rgba(0, 47, 77, .25)');
       }
-    } 
+    }
   }); 
 });

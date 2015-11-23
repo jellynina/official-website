@@ -10,15 +10,20 @@ section {
 h2 {
   font-size: 4em;
   margin-bottom: 20px;
+  @include mq("mobile") {
+    font-size: 2.5em;
+  }
 }
 
 h3 {
   font-weight: 300;
-  font-size: 2.8em;
+  font-size: 2em;
+  line-height: 1.3;
 }
 
 .wrap{
-  width: 1180px;
+  max-width: 1180px;
+  width: 95%;
   height: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -32,7 +37,6 @@ h3 {
     text-align: justify;
   }
 }
-
 
 /* SECTION EACH
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -54,6 +58,10 @@ h3 {
     margin-left: 10px;
     width: 500px;
     z-index: 1;
+
+    @include mq("mobile") {
+      @include boxMobile;
+    }
   } 
   .imgsContainer{
     display: block;
@@ -85,7 +93,7 @@ h3 {
   .box{
     position:absolute;
     width: 55%;
-    left: 40%;
+    right: 5%;
     margin-top: 90px;
     z-index: 2;
     color: #FFFFFF;
@@ -94,13 +102,23 @@ h3 {
 }
 
 #service{
-    .box{
+  background: #AA076B; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #AA076B , #61045F); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #AA076B , #61045F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          
+  .box{
     position:absolute;
     width: 55%;
-    left: 20%;
-    margin-top: 90px;
+    left: 5%;
+    margin-top: 120px;
     z-index: 2;
     color: #FFFFFF;
+  }
+  .imgsContainer{
+    position:absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
   }
 
 }

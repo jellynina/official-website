@@ -24,11 +24,10 @@
   }
   .is-desk{
     li{
-      opacity: .8;
-      @include transition(all, 1s);
       a{
-        @include transition(all, 1s);
-        @include single-transition(font-size, 1.5s, ease-in-out);       
+        opacity: .8;
+        @include transition(all, 1s, ease-in-out);
+        // @include single-transition(font-size, 1.5s, ease-in-out);       
       }
 
       &:hover a{

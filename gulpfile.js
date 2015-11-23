@@ -8,6 +8,7 @@ var gulp  = require('gulp'),
   compass = require('gulp-compass'),
   maps    = require('gulp-sourcemaps'),
   connect = require('gulp-connect'),
+  nunjucksRender = require('gulp-nunjucks-render'),
   del     = require('del');
 
 
@@ -43,6 +44,18 @@ gulp.task("compileSass", function (){
   .pipe(maps.write('./')) //this path is going to be relative to our output directory ??
   .pipe(gulp.dest("dist/css"))
   .pipe(connect.reload());
+});
+
+gulp.task('nunjucks', function() {
+  // nunjucks stuff here
+  nunjucksRender.nunjucks.configure(['./templates/']);
+
+  // Gets .html and .nunjucks files in pages
+  return gulp.src('./pages/**/*.+(html|nunjucks)')
+  // Renders template with nunjucks
+  .pipe(nunjucksRender())
+  // output files in app folder
+  .pipe(gulp.dest('./'))
 });
 
 gulp.task('watch', function (){

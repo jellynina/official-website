@@ -8,10 +8,12 @@ $k_logo: 90px / 67px ;
 }
 
 .tdi-logo{
+  /* in desktop */
   @include logoSize(36px);
   display: inline-block;
   background: url('../img/TDI-Logo.svg') no-repeat 50% 50%;
-  background-size: cover;  
+  background-size: cover; 
+  @include filter(drop-shadow(#ccc 1px 1px 0px)); // not-working
 }
 
 .logo{
