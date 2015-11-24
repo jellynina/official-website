@@ -1,0 +1,14 @@
+<h2>Contact Us</h2>
+<form class="form-contact clearfix" action="mailto:jellynina@gmail.com" method="get" enctype="text/plain">
+  <input type="text" placeholder="Your Name" required>
+  <input type="email" placeholder="Your e-mail" required>
+  <textarea placeholder="what are you want to tell us?" required></textarea>
+  <!-- <button>send</button> -->
+  <input type="submit" name="submit" value="Send">
+</form>
+<footer>
+  <ul>
+    <li><a href="https://www.facebook.com/TDI.tw/" target="_blank">fb</a></li>
+    <li><a href="http://titaniadesign.blogspot.tw" target="_blank">blog</a></li>
+  </ul>
+</footer>

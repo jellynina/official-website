@@ -1,0 +1,24 @@
+  <div class="horizontal-scrolling" id="slide-0">
+    <div class="box">
+      <h2>台北發現劇場</h2>
+      <h3>Gallery</h3>
+    </div>
+  </div>
+  <div class="horizontal-scrolling" id="slide-1">
+    <div class="box">
+      <h2>海洋科技博物館</h2>
+      <h3>Gallery</h3>
+    </div>
+  </div>
+  <div class="horizontal-scrolling" id="slide-2">
+    <div class="box">
+      <h2>海洋科技博物館</h2>
+      <h3>Gallery</h3>
+    </div>
+  </div>
+  <div class="horizontal-scrolling" id="slide-3">
+    <div class="box">
+      <h2>中正紀念堂</h2>
+      <h3>Gallery</h3>
+    </div>
+  </div>

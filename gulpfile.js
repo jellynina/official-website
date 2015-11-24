@@ -54,7 +54,7 @@ gulp.task('nunjucks', function() {
   return gulp.src('./pages/**/*.+(html|nunjucks)')
   // Renders template with nunjucks
   .pipe(nunjucksRender())
-  // output files in app folder
+  // output files
   .pipe(gulp.dest('./'))
 });
 
@@ -62,9 +62,10 @@ gulp.task('watch', function (){
   gulp.watch('sass/**/*.scss', ['compileSass']);
   gulp.watch('js/main.js', ['concatScripts']);
   gulp.watch('./index.html', ['build']);
+  gulp.watch(['templates/**', 'pages/**'], ['nunjucks']);
 });
 
-gulp.task('serve', ['watch'], function (){
+gulp.task('run', ['watch'], function (){
   connect.server({
     root: 'dist',
     port: 8080,
@@ -72,13 +73,13 @@ gulp.task('serve', ['watch'], function (){
   });
 });
 
-// gulp.task('clean', function(){
-//   del(['dist' ]);
-// })
+gulp.task('clean', function(){
+  del(['dist' ]);
+})
 
 gulp.task("build", ['concatScripts', 'compileSass'], function (){
-  return gulp.src(['index.html',
-                   "img/**", "fonts/**"], { base: './'})
+  return gulp.src(['index.html', 'tempDemo.html',
+                   "img/**", "fonts/**", "favicon.ico"], { base: './'})
             .pipe(gulp.dest('dist'));
 });
 

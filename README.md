@@ -3,7 +3,6 @@ TDI website
 
 ==========
 
-使用
 
 ## TODO
 
@@ -21,13 +20,6 @@ TDI website
 
 live re-load
 
+## 2015.11.24 note:
 
-# img license
-
-```html
-<a href='http://www.freepik.com/free-vector/variety-of-monuments_803491.htm'>Designed by Freepik</a>
-```
-
-```
-<a target="_blank" href="https://www.vectoropenstock.com/vectors/preview/73217/rome-skyline-painted-flag"> Rome skyline painted flag </a> | Free vector by <a target="_blank" href="https://www.vectoropenstock.com/">Vector Open Stock</a>
-```
+* templating with [nunjucks](https://mozilla.github.io/nunjucks/)
