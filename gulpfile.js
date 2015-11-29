@@ -23,7 +23,6 @@ gulp.task("concatScripts", function () {
   .pipe(gulp.dest("dist/js")) //app.js 放到某個位置(js資料夾裡面)
 });
 
-// 任務有相依性
 gulp.task("minifyScripts", ["concatScripts"], function (){
   return gulp.src("js/app.js")
     .pipe(uglify())
@@ -35,7 +34,6 @@ gulp.task("minifyScripts", ["concatScripts"], function (){
 gulp.task("compileSass", function (){
   return gulp.src("sass/style.scss")
   .pipe(maps.init())
-  // .pipe(sass())
   .pipe(compass({
     sass: 'sass',
     image: 'img',
@@ -47,15 +45,16 @@ gulp.task("compileSass", function (){
 });
 
 gulp.task('nunjucks', function() {
-  // nunjucks stuff here
   nunjucksRender.nunjucks.configure(['./templates/']);
-
   // Gets .html and .nunjucks files in pages
   return gulp.src('./pages/**/*.+(html|nunjucks)')
-  // Renders template with nunjucks
   .pipe(nunjucksRender())
-  // output files
   .pipe(gulp.dest('./'))
+});
+
+gulp.task('html', ['nunjucks'], function() {
+  return gulp.src(['*.html'], {base: './'})
+             .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', function (){
@@ -77,13 +76,10 @@ gulp.task('clean', function(){
   del(['dist' ]);
 })
 
-gulp.task("build", ['concatScripts', 'compileSass'], function (){
-  return gulp.src(['index.html', 'tempDemo.html',
-                   "img/**", "fonts/**", "favicon.ico"], { base: './'})
+gulp.task("build", ['html', 'concatScripts', 'compileSass'], function (){
+  return gulp.src(["img/**", "fonts/**", "favicon.ico"], { base: './'})
             .pipe(gulp.dest('dist'));
 });
-
-gulp.task('serve',['watch']);
 
 gulp.task("default", ["clean"], function (){
   gulp.start('build');

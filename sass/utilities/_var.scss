@@ -1,3 +1,4 @@
+$devmode: true;
 /* MQ
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
@@ -9,3 +10,15 @@ $MQ-mobile: 530px;
 
 $icn-lg: 36px;
 
+/* color
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+// grayscale
+
+$black: #1d1b1d;
+
+$gray-darker:            lighten($black, 13.5%); //
+$gray-dark:              lighten($black, 20%);   //
+$gray:                   lighten($black, 33.5%); //
+$gray-light:             lighten($black, 46.7%); //
+$gray-lighter:           lighten($black, 93.5%); //

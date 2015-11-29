@@ -239,6 +239,8 @@ html.fp-enabled,
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 /* icon-size
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* color
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 * {
   margin: 0;
   padding: 0;
@@ -812,6 +814,22 @@ button:focus {
   top: 90%;
 }
 
+/* for logo */
+.animate-logo {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background-color: #413c41;
+  margin: 0 auto;
+  position: relative;
+}
+.animate-logo img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .vertical-scrolling footer {
   position: absolute;
   bottom: 0;
@@ -838,6 +856,11 @@ button:focus {
   .is-desk {
     display: none;
   }
+}
+
+.dev {
+  display: block;
+  margin-top: 20px;
 }
 
 /* note */

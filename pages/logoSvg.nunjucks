@@ -1,0 +1,6 @@
+{% extends "layout.nunjucks" %}
+{% block content %}
+  <div class="animate-logo">
+    <img src="img/TDI-Logo.svg" alt="TDI-log" />
+  </div>
+{% endblock %}

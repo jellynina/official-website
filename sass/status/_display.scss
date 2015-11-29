@@ -8,5 +8,15 @@
 .is-desk{
   @media screen and (max-width: $MQ-mobile){
     display: none;
-  }  
+  }
+}
+
+.dev{
+  @if $devmode {
+    display: block;
+  } @else {
+    display: none;
+  }
+
+  margin-top: 20px;
 }
