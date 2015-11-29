@@ -1,24 +1,41 @@
 
-TDI website 
+# TDI website
 
-==========
+***
 
 
 ## TODO
 
-1. add template
-2. favicon
-3. logo
+1. ~~add template~~: 1124 done
+2. ~~favicon~~: 1125done
+3. logo with animation: studying
+4. background image animation: blocking
+5. Visual Design and Adjustment: **Director** decide Visual style, and content.
+6. lightbox
+
+
+# Improvement:
 
 
 ## Svg
 
-[read](http://codepen.io/noahblon/post/coloring-svgs-in-css-background-images)
+* svg css filter:[read](http://codepen.io/noahblon/post/coloring-svgs-in-css-background-images)
 
 
 ## gulp connect
 
-live re-load
+### live re-load
+
+```js
+  var connect = require('gulp-connect');
+  gulp.task('run', ['watch'], function (){
+    connect.server({
+      root: 'dist',
+      port: 8080,
+      livereload: true
+    });
+  });
+```
 
 ## 2015.11.24 note:
 
