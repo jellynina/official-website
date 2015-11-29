@@ -1,12 +1,26 @@
-.vertical-scrolling footer{
-  position: absolute;
+.footer{
+  position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 12;
+
   ul{
     text-align: right;
+    padding-right: 30px;
   }
   li{
     display: inline-block;
-    margin: 5px 1.5em;
+    margin: 5px .3em;
+    color: $gray-lighter;
+    font-size: 1.5em;
+  }
+
+  @include mq("mobile") {
+    ul{
+      text-align: center;
+    }
+    li{
+      font-size: 2em;
+    }
   }
 }

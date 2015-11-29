@@ -2,6 +2,7 @@
 
 {% block content %}
   {% include "partials/header.nunjucks" %}
+  {% include "partials/footer.nunjucks" %}
 
   <div id="fullpage">
     <section class="vertical-scrolling" id="home">
