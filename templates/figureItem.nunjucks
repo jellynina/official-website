@@ -1,0 +1,5 @@
+<figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+  <a href="{{img-Url}}" itemprop="contentUrl" data-size="1000x667" data-index="{{img-index}}">
+    <img src="{{img-thumb-Url}}" height="200" width="300" itemprop="thumbnail" alt="{{img-title}}">
+  </a>
+</figure>
