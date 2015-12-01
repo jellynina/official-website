@@ -21,6 +21,9 @@
     <section class="vertical-scrolling" id="section-contact">
     {% include "partials/contact.nunjucks" %}
     </section>
+    <section class="vertical-scrolling">
+    {% include "partials/lightbox.nunjucks" %}
+    </section>
 
   </div>
 

@@ -1,4 +1,1331 @@
+/*! PhotoSwipe main CSS by Dmitry Semenov | photoswipe.com | MIT license */
+/*
+	Styles for basic PhotoSwipe functionality (sliding area, open/close transitions)
+*/
+/* pswp = photoswipe */
+.pswp {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  -ms-touch-action: none;
+  touch-action: none;
+  z-index: 1500;
+  -webkit-text-size-adjust: 100%;
+  /* create separate layer, to avoid paint on window.onscroll in webkit/blink */
+  -webkit-backface-visibility: hidden;
+  outline: none; }
+  .pswp * {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box; }
+  .pswp img {
+    max-width: none; }
+
+/* style is added when JS option showHideOpacity is set to true */
+.pswp--animate_opacity {
+  /* 0.001, because opacity:0 doesn't trigger Paint action, which causes lag at start of transition */
+  opacity: 0.001;
+  will-change: opacity;
+  /* for open/close transition */
+  -webkit-transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);
+          transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1); }
+
+.pswp--open {
+  display: block; }
+
+.pswp--zoom-allowed .pswp__img {
+  /* autoprefixer: off */
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+  cursor: zoom-in; }
+
+.pswp--zoomed-in .pswp__img {
+  /* autoprefixer: off */
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab; }
+
+.pswp--dragging .pswp__img {
+  /* autoprefixer: off */
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing; }
+
+/*
+	Background is added as a separate element.
+	As animating opacity is much faster than animating rgba() background-color.
+*/
+.pswp__bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  will-change: opacity; }
+
+.pswp__scroll-wrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
+
+.pswp__container,
+.pswp__zoom-wrap {
+  -ms-touch-action: none;
+  touch-action: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
+/* Prevent selection and tap highlights */
+.pswp__container,
+.pswp__img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+      user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none; }
+
+.pswp__zoom-wrap {
+  position: absolute;
+  width: 100%;
+  -webkit-transform-origin: left top;
+  -ms-transform-origin: left top;
+  transform-origin: left top;
+  /* for open/close transition */
+  -webkit-transition: -webkit-transform 333ms cubic-bezier(0.4, 0, 0.22, 1);
+          transition: transform 333ms cubic-bezier(0.4, 0, 0.22, 1); }
+
+.pswp__bg {
+  will-change: opacity;
+  /* for open/close transition */
+  -webkit-transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);
+          transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1); }
+
+.pswp--animated-in .pswp__bg,
+.pswp--animated-in .pswp__zoom-wrap {
+  -webkit-transition: none;
+  transition: none; }
+
+.pswp__container,
+.pswp__zoom-wrap {
+  -webkit-backface-visibility: hidden;
+  will-change: transform; }
+
+.pswp__item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden; }
+
+.pswp__img {
+  position: absolute;
+  width: auto;
+  height: auto;
+  top: 0;
+  left: 0; }
+
+/*
+	stretched thumbnail or div placeholder element (see below)
+	style is added to avoid flickering in webkit/blink when layers overlap
+*/
+.pswp__img--placeholder {
+  -webkit-backface-visibility: hidden; }
+
+/*
+	div element that matches size of large image
+	large image loads on top of it
+*/
+.pswp__img--placeholder--blank {
+  background: #222; }
+
+.pswp--ie .pswp__img {
+  width: 100% !important;
+  height: auto !important;
+  left: 0;
+  top: 0; }
+
+/*
+	Error message appears when image is not loaded
+	(JS option errorMsg controls markup)
+*/
+.pswp__error-msg {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  line-height: 16px;
+  margin-top: -8px;
+  color: #CCC; }
+
+.pswp__error-msg a {
+  color: #CCC;
+  text-decoration: underline; }
+
+/*! PhotoSwipe Default UI CSS by Dmitry Semenov | photoswipe.com | MIT license */
+/*
+
+	Contents:
+
+	1. Buttons
+	2. Share modal and links
+	3. Index indicator ("1 of X" counter)
+	4. Caption
+	5. Loading indicator
+	6. Additional styles (root element, top bar, idle state, hidden state, etc.)
+
+*/
+/*
+	
+	1. Buttons
+
+ */
+/* <button> css reset */
+.pswp__button {
+  width: 44px;
+  height: 44px;
+  position: relative;
+  background: none;
+  cursor: pointer;
+  overflow: visible;
+  -webkit-appearance: none;
+  display: block;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  float: right;
+  opacity: 0.75;
+  -webkit-transition: opacity 0.2s;
+          transition: opacity 0.2s;
+  -webkit-box-shadow: none;
+          box-shadow: none; }
+  .pswp__button:focus,
+  .pswp__button:hover {
+    opacity: 1; }
+  .pswp__button:active {
+    outline: none;
+    opacity: 0.9; }
+  .pswp__button::-moz-focus-inner {
+    padding: 0;
+    border: 0; }
+
+/* pswp__ui--over-close class it added when mouse is over element that should close gallery */
+.pswp__ui--over-close .pswp__button--close {
+  opacity: 1; }
+
+.pswp__button,
+.pswp__button--arrow--left:before,
+.pswp__button--arrow--right:before {
+  background: url(default-skin.png) 0 0 no-repeat;
+  background-size: 264px 88px;
+  width: 44px;
+  height: 44px; }
+
+@media (-webkit-min-device-pixel-ratio: 1.1), (-webkit-min-device-pixel-ratio: 1.09375), (min-resolution: 105dpi), (min-resolution: 1.1dppx) {
+  /* Serve SVG sprite if browser supports SVG and resolution is more than 105dpi */
+  .pswp--svg .pswp__button,
+  .pswp--svg .pswp__button--arrow--left:before,
+  .pswp--svg .pswp__button--arrow--right:before {
+    background-image: url(default-skin.svg); }
+  .pswp--svg .pswp__button--arrow--left,
+  .pswp--svg .pswp__button--arrow--right {
+    background: none; } }
+
+.pswp__button--close {
+  background-position: 0 -44px; }
+
+.pswp__button--share {
+  background-position: -44px -44px; }
+
+.pswp__button--fs {
+  display: none; }
+
+.pswp--supports-fs .pswp__button--fs {
+  display: block; }
+
+.pswp--fs .pswp__button--fs {
+  background-position: -44px 0; }
+
+.pswp__button--zoom {
+  display: none;
+  background-position: -88px 0; }
+
+.pswp--zoom-allowed .pswp__button--zoom {
+  display: block; }
+
+.pswp--zoomed-in .pswp__button--zoom {
+  background-position: -132px 0; }
+
+/* no arrows on touch screens */
+.pswp--touch .pswp__button--arrow--left,
+.pswp--touch .pswp__button--arrow--right {
+  visibility: hidden; }
+
+/*
+	Arrow buttons hit area
+	(icon is added to :before pseudo-element)
+*/
+.pswp__button--arrow--left,
+.pswp__button--arrow--right {
+  background: none;
+  top: 50%;
+  margin-top: -50px;
+  width: 70px;
+  height: 100px;
+  position: absolute; }
+
+.pswp__button--arrow--left {
+  left: 0; }
+
+.pswp__button--arrow--right {
+  right: 0; }
+
+.pswp__button--arrow--left:before,
+.pswp__button--arrow--right:before {
+  content: '';
+  top: 35px;
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 30px;
+  width: 32px;
+  position: absolute; }
+
+.pswp__button--arrow--left:before {
+  left: 6px;
+  background-position: -138px -44px; }
+
+.pswp__button--arrow--right:before {
+  right: 6px;
+  background-position: -94px -44px; }
+
+/*
+
+	2. Share modal/popup and links
+
+ */
+.pswp__counter,
+.pswp__share-modal {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+      user-select: none; }
+
+.pswp__share-modal {
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  position: absolute;
+  z-index: 1600;
+  opacity: 0;
+  -webkit-transition: opacity 0.25s ease-out;
+          transition: opacity 0.25s ease-out;
+  -webkit-backface-visibility: hidden;
+  will-change: opacity; }
+
+.pswp__share-modal--hidden {
+  display: none; }
+
+.pswp__share-tooltip {
+  z-index: 1620;
+  position: absolute;
+  background: #FFF;
+  top: 56px;
+  border-radius: 2px;
+  display: block;
+  width: auto;
+  right: 44px;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  -webkit-transform: translateY(6px);
+      -ms-transform: translateY(6px);
+          transform: translateY(6px);
+  -webkit-transition: -webkit-transform 0.25s;
+          transition: transform 0.25s;
+  -webkit-backface-visibility: hidden;
+  will-change: transform; }
+  .pswp__share-tooltip a {
+    display: block;
+    padding: 8px 12px;
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 18px; }
+    .pswp__share-tooltip a:hover {
+      text-decoration: none;
+      color: #000; }
+    .pswp__share-tooltip a:first-child {
+      /* round corners on the first/last list item */
+      border-radius: 2px 2px 0 0; }
+    .pswp__share-tooltip a:last-child {
+      border-radius: 0 0 2px 2px; }
+
+.pswp__share-modal--fade-in {
+  opacity: 1; }
+  .pswp__share-modal--fade-in .pswp__share-tooltip {
+    -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+            transform: translateY(0); }
+
+/* increase size of share links on touch devices */
+.pswp--touch .pswp__share-tooltip a {
+  padding: 16px 12px; }
+
+a.pswp__share--facebook:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -12px;
+  right: 15px;
+  border: 6px solid transparent;
+  border-bottom-color: #FFF;
+  -webkit-pointer-events: none;
+  -moz-pointer-events: none;
+  pointer-events: none; }
+
+a.pswp__share--facebook:hover {
+  background: #3E5C9A;
+  color: #FFF; }
+  a.pswp__share--facebook:hover:before {
+    border-bottom-color: #3E5C9A; }
+
+a.pswp__share--twitter:hover {
+  background: #55ACEE;
+  color: #FFF; }
+
+a.pswp__share--pinterest:hover {
+  background: #CCC;
+  color: #CE272D; }
+
+a.pswp__share--download:hover {
+  background: #DDD; }
+
+/*
+
+	3. Index indicator ("1 of X" counter)
+
+ */
+.pswp__counter {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 44px;
+  font-size: 13px;
+  line-height: 44px;
+  color: #FFF;
+  opacity: 0.75;
+  padding: 0 10px; }
+
+/*
+	
+	4. Caption
+
+ */
+.pswp__caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 44px; }
+  .pswp__caption small {
+    font-size: 11px;
+    color: #BBB; }
+
+.pswp__caption__center {
+  text-align: left;
+  max-width: 420px;
+  margin: 0 auto;
+  font-size: 13px;
+  padding: 10px;
+  line-height: 20px;
+  color: #CCC; }
+
+.pswp__caption--empty {
+  display: none; }
+
+/* Fake caption element, used to calculate height of next/prev image */
+.pswp__caption--fake {
+  visibility: hidden; }
+
+/*
+
+	5. Loading indicator (preloader)
+
+	You can play with it here - http://codepen.io/dimsemenov/pen/yyBWoR
+
+ */
+.pswp__preloader {
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -22px;
+  opacity: 0;
+  -webkit-transition: opacity 0.25s ease-out;
+          transition: opacity 0.25s ease-out;
+  will-change: opacity;
+  direction: ltr; }
+
+.pswp__preloader__icn {
+  width: 20px;
+  height: 20px;
+  margin: 12px; }
+
+.pswp__preloader--active {
+  opacity: 1; }
+  .pswp__preloader--active .pswp__preloader__icn {
+    /* We use .gif in browsers that don't support CSS animation */
+    background: url(preloader.gif) 0 0 no-repeat; }
+
+.pswp--css_animation .pswp__preloader--active {
+  opacity: 1; }
+  .pswp--css_animation .pswp__preloader--active .pswp__preloader__icn {
+    -webkit-animation: clockwise 500ms linear infinite;
+            animation: clockwise 500ms linear infinite; }
+  .pswp--css_animation .pswp__preloader--active .pswp__preloader__donut {
+    -webkit-animation: donut-rotate 1000ms cubic-bezier(0.4, 0, 0.22, 1) infinite;
+            animation: donut-rotate 1000ms cubic-bezier(0.4, 0, 0.22, 1) infinite; }
+
+.pswp--css_animation .pswp__preloader__icn {
+  background: none;
+  opacity: 0.75;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  margin: 0; }
+
+.pswp--css_animation .pswp__preloader__cut {
+  /* 
+			The idea of animating inner circle is based on Polymer ("material") loading indicator 
+			 by Keanu Lee https://blog.keanulee.com/2014/10/20/the-tale-of-three-spinners.html
+		*/
+  position: relative;
+  width: 7px;
+  height: 14px;
+  overflow: hidden; }
+
+.pswp--css_animation .pswp__preloader__donut {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #FFF;
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: none;
+  margin: 0; }
+
+@media screen and (max-width: 1024px) {
+  .pswp__preloader {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin: 0;
+    float: right; } }
+
+@-webkit-keyframes clockwise {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes clockwise {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@-webkit-keyframes donut-rotate {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); }
+  50% {
+    -webkit-transform: rotate(-140deg);
+            transform: rotate(-140deg); }
+  100% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); } }
+
+@keyframes donut-rotate {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); }
+  50% {
+    -webkit-transform: rotate(-140deg);
+            transform: rotate(-140deg); }
+  100% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); } }
+
+/*
+	
+	6. Additional styles
+
+ */
+/* root element of UI */
+.pswp__ui {
+  -webkit-font-smoothing: auto;
+  visibility: visible;
+  opacity: 1;
+  z-index: 1550; }
+
+/* top black bar with buttons and "1 of X" indicator */
+.pswp__top-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 44px;
+  width: 100%; }
+
+.pswp__caption,
+.pswp__top-bar,
+.pswp--has_mouse .pswp__button--arrow--left,
+.pswp--has_mouse .pswp__button--arrow--right {
+  -webkit-backface-visibility: hidden;
+  will-change: opacity;
+  -webkit-transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);
+          transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1); }
+
+/* pswp--has_mouse class is added only when two subsequent mousemove events occur */
+.pswp--has_mouse .pswp__button--arrow--left,
+.pswp--has_mouse .pswp__button--arrow--right {
+  visibility: visible; }
+
+.pswp__top-bar,
+.pswp__caption {
+  background-color: rgba(0, 0, 0, 0.5); }
+
+/* pswp__ui--fit class is added when main image "fits" between top bar and bottom bar (caption) */
+.pswp__ui--fit .pswp__top-bar,
+.pswp__ui--fit .pswp__caption {
+  background-color: rgba(0, 0, 0, 0.3); }
+
+/* pswp__ui--idle class is added when mouse isn't moving for several seconds (JS option timeToIdle) */
+.pswp__ui--idle .pswp__top-bar {
+  opacity: 0; }
+
+.pswp__ui--idle .pswp__button--arrow--left,
+.pswp__ui--idle .pswp__button--arrow--right {
+  opacity: 0; }
+
+/*
+	pswp__ui--hidden class is added when controls are hidden
+	e.g. when user taps to toggle visibility of controls
+*/
+.pswp__ui--hidden .pswp__top-bar,
+.pswp__ui--hidden .pswp__caption,
+.pswp__ui--hidden .pswp__button--arrow--left,
+.pswp__ui--hidden .pswp__button--arrow--right {
+  /* Force paint & create composition layer for controls. */
+  opacity: 0.001; }
+
+/* pswp__ui--one-slide class is added when there is just one item in gallery */
+.pswp__ui--one-slide .pswp__button--arrow--left,
+.pswp__ui--one-slide .pswp__button--arrow--right,
+.pswp__ui--one-slide .pswp__counter {
+  display: none; }
+
+.pswp__element--disabled {
+  display: none !important; }
+
+.pswp--minimal--dark .pswp__top-bar {
+  background: none; }
+
+/*! PhotoSwipe main CSS by Dmitry Semenov | photoswipe.com | MIT license */
+/*
+	Styles for basic PhotoSwipe functionality (sliding area, open/close transitions)
+*/
+/* pswp = photoswipe */
+.pswp {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  -ms-touch-action: none;
+  touch-action: none;
+  z-index: 1500;
+  -webkit-text-size-adjust: 100%;
+  /* create separate layer, to avoid paint on window.onscroll in webkit/blink */
+  -webkit-backface-visibility: hidden;
+  outline: none; }
+  .pswp * {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box; }
+  .pswp img {
+    max-width: none; }
+
+/* style is added when JS option showHideOpacity is set to true */
+.pswp--animate_opacity {
+  /* 0.001, because opacity:0 doesn't trigger Paint action, which causes lag at start of transition */
+  opacity: 0.001;
+  will-change: opacity;
+  /* for open/close transition */
+  -webkit-transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);
+          transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1); }
+
+.pswp--open {
+  display: block; }
+
+.pswp--zoom-allowed .pswp__img {
+  /* autoprefixer: off */
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+  cursor: zoom-in; }
+
+.pswp--zoomed-in .pswp__img {
+  /* autoprefixer: off */
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab; }
+
+.pswp--dragging .pswp__img {
+  /* autoprefixer: off */
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing; }
+
+/*
+	Background is added as a separate element.
+	As animating opacity is much faster than animating rgba() background-color.
+*/
+.pswp__bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0;
+  -webkit-backface-visibility: hidden;
+  will-change: opacity; }
+
+.pswp__scroll-wrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
+
+.pswp__container,
+.pswp__zoom-wrap {
+  -ms-touch-action: none;
+  touch-action: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
+/* Prevent selection and tap highlights */
+.pswp__container,
+.pswp__img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+      user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none; }
+
+.pswp__zoom-wrap {
+  position: absolute;
+  width: 100%;
+  -webkit-transform-origin: left top;
+  -ms-transform-origin: left top;
+  transform-origin: left top;
+  /* for open/close transition */
+  -webkit-transition: -webkit-transform 333ms cubic-bezier(0.4, 0, 0.22, 1);
+          transition: transform 333ms cubic-bezier(0.4, 0, 0.22, 1); }
+
+.pswp__bg {
+  will-change: opacity;
+  /* for open/close transition */
+  -webkit-transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);
+          transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1); }
+
+.pswp--animated-in .pswp__bg,
+.pswp--animated-in .pswp__zoom-wrap {
+  -webkit-transition: none;
+  transition: none; }
+
+.pswp__container,
+.pswp__zoom-wrap {
+  -webkit-backface-visibility: hidden;
+  will-change: transform; }
+
+.pswp__item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden; }
+
+.pswp__img {
+  position: absolute;
+  width: auto;
+  height: auto;
+  top: 0;
+  left: 0; }
+
+/*
+	stretched thumbnail or div placeholder element (see below)
+	style is added to avoid flickering in webkit/blink when layers overlap
+*/
+.pswp__img--placeholder {
+  -webkit-backface-visibility: hidden; }
+
+/*
+	div element that matches size of large image
+	large image loads on top of it
+*/
+.pswp__img--placeholder--blank {
+  background: #222; }
+
+.pswp--ie .pswp__img {
+  width: 100% !important;
+  height: auto !important;
+  left: 0;
+  top: 0; }
+
+/*
+	Error message appears when image is not loaded
+	(JS option errorMsg controls markup)
+*/
+.pswp__error-msg {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  line-height: 16px;
+  margin-top: -8px;
+  color: #CCC; }
+
+.pswp__error-msg a {
+  color: #CCC;
+  text-decoration: underline; }
+
+/*! PhotoSwipe Default UI CSS by Dmitry Semenov | photoswipe.com | MIT license */
+/*
+
+	Contents:
+
+	1. Buttons
+	2. Share modal and links
+	3. Index indicator ("1 of X" counter)
+	4. Caption
+	5. Loading indicator
+	6. Additional styles (root element, top bar, idle state, hidden state, etc.)
+
+*/
+/*
+	
+	1. Buttons
+
+ */
+/* <button> css reset */
+.pswp__button {
+  width: 44px;
+  height: 44px;
+  position: relative;
+  background: none;
+  cursor: pointer;
+  overflow: visible;
+  -webkit-appearance: none;
+  display: block;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  float: right;
+  opacity: 0.75;
+  -webkit-transition: opacity 0.2s;
+          transition: opacity 0.2s;
+  -webkit-box-shadow: none;
+          box-shadow: none; }
+  .pswp__button:focus,
+  .pswp__button:hover {
+    opacity: 1; }
+  .pswp__button:active {
+    outline: none;
+    opacity: 0.9; }
+  .pswp__button::-moz-focus-inner {
+    padding: 0;
+    border: 0; }
+
+/* pswp__ui--over-close class it added when mouse is over element that should close gallery */
+.pswp__ui--over-close .pswp__button--close {
+  opacity: 1; }
+
+.pswp__button,
+.pswp__button--arrow--left:before,
+.pswp__button--arrow--right:before {
+  background: url(default-skin.png) 0 0 no-repeat;
+  background-size: 264px 88px;
+  width: 44px;
+  height: 44px; }
+
+@media (-webkit-min-device-pixel-ratio: 1.1), (-webkit-min-device-pixel-ratio: 1.09375), (min-resolution: 105dpi), (min-resolution: 1.1dppx) {
+  /* Serve SVG sprite if browser supports SVG and resolution is more than 105dpi */
+  .pswp--svg .pswp__button,
+  .pswp--svg .pswp__button--arrow--left:before,
+  .pswp--svg .pswp__button--arrow--right:before {
+    background-image: url(default-skin.svg); }
+  .pswp--svg .pswp__button--arrow--left,
+  .pswp--svg .pswp__button--arrow--right {
+    background: none; } }
+
+.pswp__button--close {
+  background-position: 0 -44px; }
+
+.pswp__button--share {
+  background-position: -44px -44px; }
+
+.pswp__button--fs {
+  display: none; }
+
+.pswp--supports-fs .pswp__button--fs {
+  display: block; }
+
+.pswp--fs .pswp__button--fs {
+  background-position: -44px 0; }
+
+.pswp__button--zoom {
+  display: none;
+  background-position: -88px 0; }
+
+.pswp--zoom-allowed .pswp__button--zoom {
+  display: block; }
+
+.pswp--zoomed-in .pswp__button--zoom {
+  background-position: -132px 0; }
+
+/* no arrows on touch screens */
+.pswp--touch .pswp__button--arrow--left,
+.pswp--touch .pswp__button--arrow--right {
+  visibility: hidden; }
+
+/*
+	Arrow buttons hit area
+	(icon is added to :before pseudo-element)
+*/
+.pswp__button--arrow--left,
+.pswp__button--arrow--right {
+  background: none;
+  top: 50%;
+  margin-top: -50px;
+  width: 70px;
+  height: 100px;
+  position: absolute; }
+
+.pswp__button--arrow--left {
+  left: 0; }
+
+.pswp__button--arrow--right {
+  right: 0; }
+
+.pswp__button--arrow--left:before,
+.pswp__button--arrow--right:before {
+  content: '';
+  top: 35px;
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 30px;
+  width: 32px;
+  position: absolute; }
+
+.pswp__button--arrow--left:before {
+  left: 6px;
+  background-position: -138px -44px; }
+
+.pswp__button--arrow--right:before {
+  right: 6px;
+  background-position: -94px -44px; }
+
+/*
+
+	2. Share modal/popup and links
+
+ */
+.pswp__counter,
+.pswp__share-modal {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+      user-select: none; }
+
+.pswp__share-modal {
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  position: absolute;
+  z-index: 1600;
+  opacity: 0;
+  -webkit-transition: opacity 0.25s ease-out;
+          transition: opacity 0.25s ease-out;
+  -webkit-backface-visibility: hidden;
+  will-change: opacity; }
+
+.pswp__share-modal--hidden {
+  display: none; }
+
+.pswp__share-tooltip {
+  z-index: 1620;
+  position: absolute;
+  background: #FFF;
+  top: 56px;
+  border-radius: 2px;
+  display: block;
+  width: auto;
+  right: 44px;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  -webkit-transform: translateY(6px);
+      -ms-transform: translateY(6px);
+          transform: translateY(6px);
+  -webkit-transition: -webkit-transform 0.25s;
+          transition: transform 0.25s;
+  -webkit-backface-visibility: hidden;
+  will-change: transform; }
+  .pswp__share-tooltip a {
+    display: block;
+    padding: 8px 12px;
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 18px; }
+    .pswp__share-tooltip a:hover {
+      text-decoration: none;
+      color: #000; }
+    .pswp__share-tooltip a:first-child {
+      /* round corners on the first/last list item */
+      border-radius: 2px 2px 0 0; }
+    .pswp__share-tooltip a:last-child {
+      border-radius: 0 0 2px 2px; }
+
+.pswp__share-modal--fade-in {
+  opacity: 1; }
+  .pswp__share-modal--fade-in .pswp__share-tooltip {
+    -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+            transform: translateY(0); }
+
+/* increase size of share links on touch devices */
+.pswp--touch .pswp__share-tooltip a {
+  padding: 16px 12px; }
+
+a.pswp__share--facebook:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -12px;
+  right: 15px;
+  border: 6px solid transparent;
+  border-bottom-color: #FFF;
+  -webkit-pointer-events: none;
+  -moz-pointer-events: none;
+  pointer-events: none; }
+
+a.pswp__share--facebook:hover {
+  background: #3E5C9A;
+  color: #FFF; }
+  a.pswp__share--facebook:hover:before {
+    border-bottom-color: #3E5C9A; }
+
+a.pswp__share--twitter:hover {
+  background: #55ACEE;
+  color: #FFF; }
+
+a.pswp__share--pinterest:hover {
+  background: #CCC;
+  color: #CE272D; }
+
+a.pswp__share--download:hover {
+  background: #DDD; }
+
+/*
+
+	3. Index indicator ("1 of X" counter)
+
+ */
+.pswp__counter {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 44px;
+  font-size: 13px;
+  line-height: 44px;
+  color: #FFF;
+  opacity: 0.75;
+  padding: 0 10px; }
+
+/*
+	
+	4. Caption
+
+ */
+.pswp__caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 44px; }
+  .pswp__caption small {
+    font-size: 11px;
+    color: #BBB; }
+
+.pswp__caption__center {
+  text-align: left;
+  max-width: 420px;
+  margin: 0 auto;
+  font-size: 13px;
+  padding: 10px;
+  line-height: 20px;
+  color: #CCC; }
+
+.pswp__caption--empty {
+  display: none; }
+
+/* Fake caption element, used to calculate height of next/prev image */
+.pswp__caption--fake {
+  visibility: hidden; }
+
+/*
+
+	5. Loading indicator (preloader)
+
+	You can play with it here - http://codepen.io/dimsemenov/pen/yyBWoR
+
+ */
+.pswp__preloader {
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -22px;
+  opacity: 0;
+  -webkit-transition: opacity 0.25s ease-out;
+          transition: opacity 0.25s ease-out;
+  will-change: opacity;
+  direction: ltr; }
+
+.pswp__preloader__icn {
+  width: 20px;
+  height: 20px;
+  margin: 12px; }
+
+.pswp__preloader--active {
+  opacity: 1; }
+  .pswp__preloader--active .pswp__preloader__icn {
+    /* We use .gif in browsers that don't support CSS animation */
+    background: url(preloader.gif) 0 0 no-repeat; }
+
+.pswp--css_animation .pswp__preloader--active {
+  opacity: 1; }
+  .pswp--css_animation .pswp__preloader--active .pswp__preloader__icn {
+    -webkit-animation: clockwise 500ms linear infinite;
+            animation: clockwise 500ms linear infinite; }
+  .pswp--css_animation .pswp__preloader--active .pswp__preloader__donut {
+    -webkit-animation: donut-rotate 1000ms cubic-bezier(0.4, 0, 0.22, 1) infinite;
+            animation: donut-rotate 1000ms cubic-bezier(0.4, 0, 0.22, 1) infinite; }
+
+.pswp--css_animation .pswp__preloader__icn {
+  background: none;
+  opacity: 0.75;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  margin: 0; }
+
+.pswp--css_animation .pswp__preloader__cut {
+  /* 
+			The idea of animating inner circle is based on Polymer ("material") loading indicator 
+			 by Keanu Lee https://blog.keanulee.com/2014/10/20/the-tale-of-three-spinners.html
+		*/
+  position: relative;
+  width: 7px;
+  height: 14px;
+  overflow: hidden; }
+
+.pswp--css_animation .pswp__preloader__donut {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #FFF;
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: none;
+  margin: 0; }
+
+@media screen and (max-width: 1024px) {
+  .pswp__preloader {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin: 0;
+    float: right; } }
+
+@-webkit-keyframes clockwise {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes clockwise {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@-webkit-keyframes donut-rotate {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); }
+  50% {
+    -webkit-transform: rotate(-140deg);
+            transform: rotate(-140deg); }
+  100% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); } }
+
+@keyframes donut-rotate {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); }
+  50% {
+    -webkit-transform: rotate(-140deg);
+            transform: rotate(-140deg); }
+  100% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0); } }
+
+/*
+	
+	6. Additional styles
+
+ */
+/* root element of UI */
+.pswp__ui {
+  -webkit-font-smoothing: auto;
+  visibility: visible;
+  opacity: 1;
+  z-index: 1550; }
+
+/* top black bar with buttons and "1 of X" indicator */
+.pswp__top-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 44px;
+  width: 100%; }
+
+.pswp__caption,
+.pswp__top-bar,
+.pswp--has_mouse .pswp__button--arrow--left,
+.pswp--has_mouse .pswp__button--arrow--right {
+  -webkit-backface-visibility: hidden;
+  will-change: opacity;
+  -webkit-transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);
+          transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1); }
+
+/* pswp--has_mouse class is added only when two subsequent mousemove events occur */
+.pswp--has_mouse .pswp__button--arrow--left,
+.pswp--has_mouse .pswp__button--arrow--right {
+  visibility: visible; }
+
+.pswp__top-bar,
+.pswp__caption {
+  background-color: rgba(0, 0, 0, 0.5); }
+
+/* pswp__ui--fit class is added when main image "fits" between top bar and bottom bar (caption) */
+.pswp__ui--fit .pswp__top-bar,
+.pswp__ui--fit .pswp__caption {
+  background-color: rgba(0, 0, 0, 0.3); }
+
+/* pswp__ui--idle class is added when mouse isn't moving for several seconds (JS option timeToIdle) */
+.pswp__ui--idle .pswp__top-bar {
+  opacity: 0; }
+
+.pswp__ui--idle .pswp__button--arrow--left,
+.pswp__ui--idle .pswp__button--arrow--right {
+  opacity: 0; }
+
+/*
+	pswp__ui--hidden class is added when controls are hidden
+	e.g. when user taps to toggle visibility of controls
+*/
+.pswp__ui--hidden .pswp__top-bar,
+.pswp__ui--hidden .pswp__caption,
+.pswp__ui--hidden .pswp__button--arrow--left,
+.pswp__ui--hidden .pswp__button--arrow--right {
+  /* Force paint & create composition layer for controls. */
+  opacity: 0.001; }
+
+/* pswp__ui--one-slide class is added when there is just one item in gallery */
+.pswp__ui--one-slide .pswp__button--arrow--left,
+.pswp__ui--one-slide .pswp__button--arrow--right,
+.pswp__ui--one-slide .pswp__counter {
+  display: none; }
+
+.pswp__element--disabled {
+  display: none !important; }
+
+.pswp--minimal--dark .pswp__top-bar {
+  background: none; }
+
 @charset "UTF-8";
+/* tesitindsfg css */
 /* fullpage.js */
 /**
  * fullPage 2.7.4
@@ -8,7 +1335,8 @@
  * Copyright (C) 2013 alvarotrigo.com - A project by Alvaro Trigo
  * Contribution by Jhony0311
  */
-@import url(http://fonts.googleapis.com/css?family=Alegreya+Sans:300,400,700);
+@import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:400,300,700);
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\000039}}
 html.fp-enabled,
 .fp-enabled body {
   margin: 0;
@@ -18,6 +1346,7 @@ html.fp-enabled,
   -webkit-tap-highlight-color: transparent;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000318}}
 #superContainer {
   height: 100%;
   position: relative;
@@ -27,6 +1356,7 @@ html.fp-enabled,
   touch-action: none;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000328}}
 .fp-section {
   position: relative;
   -webkit-box-sizing: border-box;
@@ -36,15 +1366,18 @@ html.fp-enabled,
   box-sizing: border-box;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000334}}
 .fp-slide {
   float: left;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000337}}
 .fp-slide, .fp-slidesContainer {
   height: 100%;
   display: block;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000341}}
 .fp-slides {
   z-index: 1;
   height: 100%;
@@ -55,12 +1388,14 @@ html.fp-enabled,
   transition: all 0.3s ease-out;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000349}}
 .fp-section.fp-table, .fp-slide.fp-table {
   display: table;
   table-layout: fixed;
   width: 100%;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000354}}
 .fp-tableCell {
   display: table-cell;
   vertical-align: middle;
@@ -68,11 +1403,13 @@ html.fp-enabled,
   height: 100%;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000360}}
 .fp-slidesContainer {
   float: left;
   position: relative;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000364}}
 .fp-controlArrow {
   position: absolute;
   z-index: 4;
@@ -86,45 +1423,54 @@ html.fp-enabled,
   -ms-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000377}}
 .fp-controlArrow.fp-prev {
   left: 15px;
   width: 0;
   border-width: 38.5px 34px 38.5px 0;
   border-color: transparent #fff transparent transparent;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000384}}
 .fp-controlArrow.fp-next {
   right: 15px;
   border-width: 38.5px 0 38.5px 34px;
   border-color: transparent transparent transparent #fff;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000390}}
 .fp-scrollable {
   overflow: scroll;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000393}}
 .fp-notransition {
   -webkit-transition: none !important;
   transition: none !important;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\0000397}}
 .fp-slidesNav {
   position: absolute;
   z-index: 4;
   left: 50%;
   opacity: 1;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003103}}
 .fp-slidesNav.bottom {
   bottom: 17px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003107}}
 .fp-slidesNav.top {
   top: 17px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003112}}
 #fp-nav ul,
 .fp-slidesNav ul {
   margin: 0;
   padding: 0;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003117}}
 #fp-nav ul li,
 .fp-slidesNav ul li {
   display: block;
@@ -133,6 +1479,7 @@ html.fp-enabled,
   margin: 7px;
   position: relative;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003124}}
 #fp-nav ul li a,
 .fp-slidesNav ul li a {
   display: block;
@@ -143,6 +1490,7 @@ html.fp-enabled,
   cursor: pointer;
   text-decoration: none;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003133}}
 #fp-nav ul li a.active span,
 .fp-slidesNav ul li a.active span {
   height: 12px;
@@ -150,6 +1498,7 @@ html.fp-enabled,
   margin: -6px 0 0 -6px;
   border-radius: 100%;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003139}}
 #fp-nav ul li:hover #fp-nav ul li a.active span, #fp-slidesNav ul li:hover #fp-nav ul li a.active span, #fp-nav ul li:hover
 .fp-slidesNav ul li a.active span, #fp-slidesNav ul li:hover
 .fp-slidesNav ul li a.active span {
@@ -158,6 +1507,7 @@ html.fp-enabled,
   margin: -6px 0 0 -6px;
   border-radius: 100%;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003148}}
 #fp-nav ul li a span,
 .fp-slidesNav ul li a span {
   border-radius: 50%;
@@ -175,6 +1525,7 @@ html.fp-enabled,
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003169}}
 #fp-nav ul li:hover a span,
 .fp-slidesNav ul li:hover a span {
   width: 10px;
@@ -182,6 +1533,7 @@ html.fp-enabled,
   margin: -5px 0px 0px -5px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003179}}
 #fp-nav {
   position: fixed;
   z-index: 100;
@@ -190,12 +1542,15 @@ html.fp-enabled,
   opacity: 1;
   -webkit-transform: translate3d(0, 0, 0);
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003186}}
 #fp-nav.right {
   right: 17px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003189}}
 #fp-nav.left {
   left: 17px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003194}}
 #fp-nav ul li .fp-tooltip {
   position: absolute;
   top: -2px;
@@ -209,15 +1564,18 @@ html.fp-enabled,
   opacity: 0;
   width: 0;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003207}}
 #fp-nav ul li .fp-tooltip.right {
   right: 20px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003216}}
 #fp-nav ul li:hover .fp-tooltip {
   -webkit-transition: opacity 0.2s ease-in;
   transition: opacity 0.2s ease-in;
   width: auto;
   opacity: 1;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003225}}
 #fp-nav.fp-show-active a.active + .fp-tooltip {
   -webkit-transition: opacity 0.2s ease-in;
   transition: opacity 0.2s ease-in;
@@ -225,10 +1583,12 @@ html.fp-enabled,
   opacity: 1;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003232}}
 .fp-slidesNav ul li {
   display: inline-block;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/lib\/fullpage\.js\/jquery\.fullPage\.scss}line{font-family:\00003235}}
 .fp-auto-height.fp-section,
 .fp-auto-height .fp-slide,
 .fp-auto-height .fp-tableCell {
@@ -241,29 +1601,35 @@ html.fp-enabled,
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 /* color
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\000031}}
 * {
   margin: 0;
   padding: 0;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\000036}}
 html {
   font-size: 62.5%;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\0000310}}
 body {
   color: black;
   letter-spacing: .18em;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\0000315}}
 a {
   text-decoration: none;
   color: white;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\0000320}}
 ul, li {
   list-style-type: none;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\0000324}}
 img {
   -moz-transition: all 0.7s ease-out;
   -o-transition: all 0.7s ease-out;
@@ -272,36 +1638,44 @@ img {
 }
 
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\0000329}}
   html {
     font-size: 50%;
   }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\0000333}}
   .open-menu ~ nav {
     padding: 20px 0;
   }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\0000337}}
   nav li a {
     padding: 3px;
   }
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_helpers\.scss}line{font-family:\000031}}
 .clearfix:before,
 .clearfix:after {
   content: "";
   display: table;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_helpers\.scss}line{font-family:\000037}}
 .clearfix:after {
   clear: both;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_helpers\.scss}line{font-family:\0000311}}
 .l-left {
   float: left;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_helpers\.scss}line{font-family:\0000315}}
 .l-right {
   float: right;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_helpers\.scss}line{font-family:\0000319}}
 .end {
   margin-top: 30px;
   font-size: 3em;
@@ -327,11 +1701,12 @@ img {
   /* 同樣的 font-family */
   unicode-range: U+00-024F;
   /* Latin, Latin1 Sup., Ext-A, Ext-B */
-  src: url(http://fonts.googleapis.com/css?family=Alegreya+Sans:300,400,700), local(Helvetica), local(Arial);
+  src: local(Helvetica), local(Arial);
   /* Other OS */
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_typo\.scss}line{font-family:\0000318}}
 body {
-  font-family: FontWithChinese, Arial, sans-serif;
+  font-family: FontWithChinese, 'Alegreya Sans', Arial, sans-serif;
 }
 
 @font-face {
@@ -341,6 +1716,7 @@ body {
   font-weight: normal;
   font-style: normal;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000312}}
 i, .icomoon-liga {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'iconfont' !important;
@@ -363,662 +1739,827 @@ i, .icomoon-liga {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000337}}
 .icon-star-empty:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000342}}
 .icon-star-half:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000347}}
 .icon-star-full:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000352}}
 .icon-heart:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000357}}
 .icon-heart-broken:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000362}}
 .icon-warning:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000367}}
 .icon-notification:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000372}}
 .icon-question:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000377}}
 .icon-info:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000382}}
 .icon-cancel-circle:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000387}}
 .icon-blocked:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000392}}
 .icon-cross:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\0000397}}
 .icon-checkmark:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003102}}
 .icon-checkmark2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003107}}
 .icon-play3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003112}}
 .icon-pause2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003117}}
 .icon-stop2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003122}}
 .icon-backward2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003127}}
 .icon-forward3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003132}}
 .icon-first:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003137}}
 .icon-last:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003142}}
 .icon-previous2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003147}}
 .icon-next2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003152}}
 .icon-eject:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003157}}
 .icon-volume-high:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003162}}
 .icon-volume-medium:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003167}}
 .icon-volume-low:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003172}}
 .icon-volume-mute:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003177}}
 .icon-volume-mute2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003182}}
 .icon-volume-increase:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003187}}
 .icon-arrow-up-left2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003192}}
 .icon-arrow-up2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003197}}
 .icon-arrow-up-right2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003202}}
 .icon-arrow-right2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003207}}
 .icon-arrow-down-right2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003212}}
 .icon-arrow-down2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003217}}
 .icon-arrow-down-left2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003222}}
 .icon-arrow-left2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003227}}
 .icon-command:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003232}}
 .icon-shift:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003237}}
 .icon-ctrl:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003242}}
 .icon-opt:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003247}}
 .icon-checkbox-checked:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003252}}
 .icon-checkbox-unchecked:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003257}}
 .icon-radio-checked:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003262}}
 .icon-radio-checked2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003267}}
 .icon-radio-unchecked:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003272}}
 .icon-section:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003277}}
 .icon-paragraph-left:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003282}}
 .icon-paragraph-center:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003287}}
 .icon-paragraph-right:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003292}}
 .icon-paragraph-justify:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003297}}
 .icon-indent-increase:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003302}}
 .icon-indent-decrease:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003307}}
 .icon-share:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003312}}
 .icon-new-tab:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003317}}
 .icon-embed:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003322}}
 .icon-embed2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003327}}
 .icon-terminal:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003332}}
 .icon-share2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003337}}
 .icon-mail:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003342}}
 .icon-mail2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003347}}
 .icon-mail3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003352}}
 .icon-mail4:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003357}}
 .icon-google:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003362}}
 .icon-google-plus:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003367}}
 .icon-google-plus2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003372}}
 .icon-google-plus3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003377}}
 .icon-google-drive:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003382}}
 .icon-facebook:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003387}}
 .icon-facebook2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003392}}
 .icon-facebook3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003397}}
 .icon-ello:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003402}}
 .icon-instagram:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003407}}
 .icon-twitter:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003412}}
 .icon-twitter2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003417}}
 .icon-twitter3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003422}}
 .icon-feed2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003427}}
 .icon-feed3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003432}}
 .icon-feed4:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003437}}
 .icon-youtube:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003442}}
 .icon-youtube2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003447}}
 .icon-youtube3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003452}}
 .icon-youtube4:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003457}}
 .icon-twitch:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003462}}
 .icon-vimeo:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003467}}
 .icon-vimeo2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003472}}
 .icon-vimeo3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003477}}
 .icon-lanyrd:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003482}}
 .icon-flickr:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003487}}
 .icon-flickr2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003492}}
 .icon-flickr3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003497}}
 .icon-flickr4:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003502}}
 .icon-picassa:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003507}}
 .icon-picassa2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003512}}
 .icon-dribbble:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003517}}
 .icon-dribbble2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003522}}
 .icon-dribbble3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003527}}
 .icon-forrst:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003532}}
 .icon-forrst2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003537}}
 .icon-deviantart:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003542}}
 .icon-deviantart2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003547}}
 .icon-steam:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003552}}
 .icon-steam2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003557}}
 .icon-dropbox:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003562}}
 .icon-onedrive:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003567}}
 .icon-github:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003572}}
 .icon-github2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003577}}
 .icon-github3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003582}}
 .icon-github4:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003587}}
 .icon-github5:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003592}}
 .icon-wordpress:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003597}}
 .icon-wordpress2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003602}}
 .icon-joomla:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003607}}
 .icon-blogger:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003612}}
 .icon-blogger2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003617}}
 .icon-tumblr:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003622}}
 .icon-tumblr2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003627}}
 .icon-yahoo:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003632}}
 .icon-tux:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003637}}
 .icon-apple:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003642}}
 .icon-finder:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003647}}
 .icon-android:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003652}}
 .icon-windows:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003657}}
 .icon-windows8:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003662}}
 .icon-soundcloud:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003667}}
 .icon-soundcloud2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003672}}
 .icon-skype:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003677}}
 .icon-reddit:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003682}}
 .icon-linkedin:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003687}}
 .icon-linkedin2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003692}}
 .icon-lastfm:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003697}}
 .icon-lastfm2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003702}}
 .icon-delicious:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003707}}
 .icon-stumbleupon:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003712}}
 .icon-stumbleupon2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003717}}
 .icon-stackoverflow:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003722}}
 .icon-pinterest:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003727}}
 .icon-pinterest2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003732}}
 .icon-xing:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003737}}
 .icon-xing2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003742}}
 .icon-flattr:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003747}}
 .icon-foursquare:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003752}}
 .icon-paypal:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003757}}
 .icon-paypal2:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003762}}
 .icon-paypal3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003767}}
 .icon-yelp:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003772}}
 .icon-file-pdf:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003777}}
 .icon-file-openoffice:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003782}}
 .icon-file-word:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003787}}
 .icon-file-excel:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003792}}
 .icon-libreoffice:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003797}}
 .icon-html5:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003802}}
 .icon-html52:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003807}}
 .icon-css3:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003812}}
 .icon-git:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003817}}
 .icon-svg:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003822}}
 .icon-codepen:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003827}}
 .icon-chrome:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003832}}
 .icon-firefox:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003837}}
 .icon-IE:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003842}}
 .icon-opera:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003847}}
 .icon-safari:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_icons\.scss}line{font-family:\00003852}}
 .icon-IcoMoon:before {
   content: "";
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\000031}}
 .header-top {
   background: transparent;
   height: 70px;
@@ -1033,6 +2574,7 @@ i, .icomoon-liga {
   /* mobile 使用 toggle */
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000315}}
 .nav-menu {
   display: block;
   margin: 5px auto;
@@ -1040,6 +2582,7 @@ i, .icomoon-liga {
   text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 2px, rgba(0, 0, 0, 0.7) 0 0.5px 0.5px;
 }
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000315}}
   .nav-menu {
     height: 0;
     opacity: 0;
@@ -1054,6 +2597,7 @@ i, .icomoon-liga {
     transition: all, 1.5s;
   }
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000331}}
 .nav-menu .is-desk li a {
   opacity: .8;
   -moz-transition: all, 1s, ease-in-out;
@@ -1061,11 +2605,13 @@ i, .icomoon-liga {
   -webkit-transition: all, 1s, ease-in-out;
   transition: all, 1s, ease-in-out;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000336}}
 .nav-menu .is-desk li:hover a {
   text-shadow: rgba(0, 0, 0, 0.8) 1px 1px 1px, rgba(0, 0, 0, 0.9) 0 0.5px 0.5px;
   opacity: 1;
   font-size: 15px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000343}}
 .nav-menu li {
   display: inline-block;
   vertical-align: middle;
@@ -1073,6 +2619,7 @@ i, .icomoon-liga {
   margin: .3em 1.2em;
 }
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000343}}
   .nav-menu li {
     display: block;
     text-align: center;
@@ -1080,21 +2627,25 @@ i, .icomoon-liga {
     width: 100%;
   }
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000358}}
 .nav-menu a {
   display: block;
   padding: .5em;
 }
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000358}}
   .nav-menu a {
     font-size: 3em;
   }
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000367}}
 .filter-blur {
   -webkit-filter: blur(3px);
   filter: blur(3px);
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\000031}}
 .toggle-menu {
   width: 50px;
   height: 50px;
@@ -1103,6 +2654,7 @@ i, .icomoon-liga {
   top: 10px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\000039}}
 .toggle-menu i {
   position: absolute;
   display: block;
@@ -1114,44 +2666,53 @@ i, .icomoon-liga {
   transition: all .3s;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\0000320}}
 .toggle-menu i:nth-child(1) {
   top: 16px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\0000324}}
 .toggle-menu i:nth-child(2) {
   top: 24px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\0000328}}
 .toggle-menu i:nth-child(3) {
   top: 32px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\0000332}}
 .open-menu i:nth-child(1) {
   top: 25px;
   -webkit-transform: rotateZ(45deg);
   transform: rotateZ(45deg);
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\0000338}}
 .open-menu i:nth-child(2) {
   background: transparent;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\0000342}}
 .open-menu i:nth-child(3) {
   top: 25px;
   -webkit-transform: rotateZ(-45deg);
   transform: rotateZ(-45deg);
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\0000350}}
 .nav-menu .is-mobile li {
   position: absolute;
   top: -1000px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\0000357}}
 .open-menu ~ .nav-menu {
   height: calc(90vh - 70px);
   opacity: 1;
   z-index: 25;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_menu\.scss}line{font-family:\0000362}}
 .open-menu ~ .nav-menu .is-mobile li {
   position: initial;
   top: 0;
@@ -1159,6 +2720,7 @@ i, .icomoon-liga {
 
 /* SECTION STYLES - fullPage.js 
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\000034}}
 section {
   text-align: center;
   background-image: linear-gradient(-214deg, #b4c881 0%, #38a59f 100%);
@@ -1166,22 +2728,26 @@ section {
   z-index: 5;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000311}}
 h2 {
   font-size: 4em;
   margin-bottom: 20px;
 }
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000311}}
   h2 {
     font-size: 2.5em;
   }
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000319}}
 h3 {
   font-weight: 300;
   font-size: 2em;
   line-height: 1.3;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000325}}
 .wrap {
   max-width: 1180px;
   width: 95%;
@@ -1191,9 +2757,11 @@ h3 {
   position: relative;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000334}}
 .box {
   font-size: 14px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000336}}
 .box p {
   font-size: 1.2em;
   text-align: justify;
@@ -1201,6 +2769,7 @@ h3 {
 
 /* SECTION EACH
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000344}}
 #home {
   background: #c2e59c;
   /* fallback for old browsers */
@@ -1209,11 +2778,13 @@ h3 {
   background: linear-gradient(to left, #c2e59c, #64b3f4);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000349}}
 #home img {
   position: absolute;
   left: 40px;
   top: 100px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000354}}
 #home .box {
   position: absolute;
   top: 20%;
@@ -1224,6 +2795,7 @@ h3 {
   z-index: 10;
 }
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000354}}
   #home .box {
     width: 80%;
     margin-left: auto;
@@ -1233,6 +2805,7 @@ h3 {
     top: 75px;
   }
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000367}}
 #home .imgsContainer {
   display: block;
   position: absolute;
@@ -1244,10 +2817,12 @@ h3 {
   width: 800px;
   height: 696px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000378}}
 #home img {
   height: 100%;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000383}}
 #about {
   background: #1A2980;
   /* fallback for old browsers */
@@ -1256,11 +2831,13 @@ h3 {
   background: linear-gradient(to left, #1a2980, #26d0ce);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000388}}
 #about .imgsContainer {
   position: absolute;
   bottom: 0;
   z-index: 10;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000394}}
 #about .box {
   position: absolute;
   width: 55%;
@@ -1270,6 +2847,7 @@ h3 {
   color: #FFFFFF;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003105}}
 #service {
   background: #AA076B;
   /* fallback for old browsers */
@@ -1278,6 +2856,7 @@ h3 {
   background: linear-gradient(to left, #aa076b, #61045f);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003110}}
 #service .box {
   position: absolute;
   width: 55%;
@@ -1286,6 +2865,7 @@ h3 {
   z-index: 20;
   color: #FFFFFF;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003118}}
 #service .imgsContainer {
   position: absolute;
   bottom: 0;
@@ -1293,9 +2873,11 @@ h3 {
   z-index: 10;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003128}}
 #section-contact {
   background: url(../img/BG-5.png) no-repeat center/cover;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003130}}
 #section-contact h2 {
   text-align: left;
   padding-left: 3em;
@@ -1305,10 +2887,12 @@ h3 {
 
 /* SLIDENAV STYLES - fullPage.js 
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\000033}}
 .fp-controlArrow {
   opacity: .5;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\000037}}
 #fp-nav ul li a span,
 .fp-slidesNav ul li a span {
   background: white;
@@ -1317,6 +2901,7 @@ h3 {
   margin: -4px 0 0 -4px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000315}}
 #fp-nav ul li a.active span,
 .fp-slidesNav ul li a.active span,
 #fp-nav ul li:hover a.active span,
@@ -1329,9 +2914,11 @@ h3 {
   border: 1px solid #24221F;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000327}}
 .horizontal-scrolling {
   position: relative;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000329}}
 .horizontal-scrolling .box {
   font-size: 55%;
   width: 100%;
@@ -1342,18 +2929,22 @@ h3 {
   color: #FFF;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000340}}
 #slide-1 {
   background: url("../img/gallery-sea1.jpg") no-repeat center/cover;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000344}}
 #slide-2 {
   background: url("../img/gallery-sea2.jpg") no-repeat center/cover;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000348}}
 #slide-3 {
   background: url("../img/gallery-cks.jpg") no-repeat center/cover;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_logo\.scss}line{font-family:\0000310}}
 .tdi-logo {
   /* in desktop */
   height: 36px;
@@ -1365,11 +2956,13 @@ h3 {
   filter: drop-shadow(#ccc 1px 1px 0px);
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_logo\.scss}line{font-family:\0000322}}
 .logo.white {
   -webkit-filter: grayscale(100%) brightness(5);
   filter: grayscale(100%) brightness(5);
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_logo\.scss}line{font-family:\0000328}}
 .mobile-logo {
   position: relative;
   top: 10px;
@@ -1379,6 +2972,7 @@ h3 {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_logo\.scss}line{font-family:\0000334}}
 .mobile-logo .logo {
   height: 28px;
   width: 37.61194px;
@@ -1387,28 +2981,33 @@ h3 {
   padding-top: 10px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_forms\.scss}line{font-family:\000031}}
 textarea {
   resize: none;
   width: 40em;
   height: 10em;
 }
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_forms\.scss}line{font-family:\000031}}
   textarea {
     width: 100%;
     height: 5em;
   }
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_forms\.scss}line{font-family:\0000312}}
 input, textarea {
   background: transparent;
   border: none;
   font-size: 2.5em;
   color: #fff;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_forms\.scss}line{font-family:\0000318}}
 input:focus, textarea:focus {
   outline: none;
 }
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_forms\.scss}line{font-family:\0000312}}
   input, textarea {
     display: block;
     width: 100%;
@@ -1417,6 +3016,7 @@ input:focus, textarea:focus {
   }
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_forms\.scss}line{font-family:\0000330}}
 button {
   font-size: 2em;
   background-color: transparent;
@@ -1426,25 +3026,30 @@ button {
   color: #fff;
   border-radius: 10px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_forms\.scss}line{font-family:\0000339}}
 button:focus {
   outline: none;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_forms\.scss}line{font-family:\0000345}}
 .form-contact input {
   width: 25%;
   margin-right: 0;
 }
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_forms\.scss}line{font-family:\0000345}}
   .form-contact input {
     width: 100%;
   }
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_forms\.scss}line{font-family:\0000352}}
 .form-contact textarea {
   display: block;
   margin: 1.2em auto;
   width: 50%;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_animate\.scss}line{font-family:\000031}}
 #staticImg {
   display: block;
   position: absolute;
@@ -1461,28 +3066,35 @@ button:focus {
   -webkit-backface-visibility: hidden;
   -webkit-perspective: 1000;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_animate\.scss}line{font-family:\0000315}}
 #staticImg.moveDown {
   -webkit-transform: translate3d(0, 100%, 0);
   -ms-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_animate\.scss}line{font-family:\0000320}}
 #staticImg.moveUp {
   -webkit-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_animate\.scss}line{font-family:\0000327}}
 #staticImg.moveDown .imgsContainer {
   top: 50%;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_animate\.scss}line{font-family:\0000331}}
 #staticImg.moveDown img {
   top: 155px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_animate\.scss}line{font-family:\0000335}}
 #staticImg.active .imgsContainer {
   top: 50%;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_animate\.scss}line{font-family:\0000339}}
 #staticImg.active img {
   top: 487px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_animate\.scss}line{font-family:\0000343}}
 #staticImg .imgsContainer {
   -moz-transition: all 1.2s ease-in-out;
   -o-transition: all 1.2s ease-in-out;
@@ -1500,6 +3112,7 @@ button:focus {
 }
 
 /* for logo */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_animate\.scss}line{font-family:\0000360}}
 .animate-logo {
   display: block;
   width: 100%;
@@ -1508,6 +3121,7 @@ button:focus {
   margin: 0 auto;
   position: relative;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_animate\.scss}line{font-family:\0000368}}
 .animate-logo img {
   position: absolute;
   top: 50%;
@@ -1515,16 +3129,19 @@ button:focus {
   transform: translate(-50%, -50%);
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_footer\.scss}line{font-family:\000031}}
 .footer {
   position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 12;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_footer\.scss}line{font-family:\000037}}
 .footer ul {
   text-align: right;
   padding-right: 30px;
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_footer\.scss}line{font-family:\0000311}}
 .footer li {
   display: inline-block;
   margin: 5px .3em;
@@ -1532,32 +3149,38 @@ button:focus {
   font-size: 1.5em;
 }
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_footer\.scss}line{font-family:\0000319}}
   .footer ul {
     text-align: center;
   }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_footer\.scss}line{font-family:\0000322}}
   .footer li {
     font-size: 2em;
   }
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/status\/_display\.scss}line{font-family:\000031}}
 .is-mobile {
   display: none;
 }
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/status\/_display\.scss}line{font-family:\000031}}
   .is-mobile {
     display: initial;
   }
 }
 
 @media screen and (max-width: 530px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/status\/_display\.scss}line{font-family:\000038}}
   .is-desk {
     display: none;
   }
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/status\/_display\.scss}line{font-family:\0000314}}
 .dev {
   display: block;
   margin-top: 20px;
 }
 
-/* note */
+/*# sourceMappingURL=style.css.map */

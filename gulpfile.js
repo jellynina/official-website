@@ -9,6 +9,7 @@ var gulp  = require('gulp'),
   maps    = require('gulp-sourcemaps'),
   connect = require('gulp-connect'),
   nunjucksRender = require('gulp-nunjucks-render'),
+  merge = require('merge-stream'),
   del     = require('del');
 
 
@@ -16,11 +17,20 @@ gulp.task("concatScripts", function () {
   return gulp.src([
     'lib/jquery/dist/jquery.js',
     'lib/fullpage.js/jquery.fullPage.min.js',
+    'cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+    'lib/photoswipe/dist/photoswipe.min.js',
+    'lib/photoswipe/dist/photoswipe-ui-default.min.js',
     'js/main.js'])
-  .pipe(maps.init())
+  .pipe(maps.init({loadMaps: true}))
   .pipe(concat("app.js")) // 把上面的js file 串近 app.js
-  .pipe(maps.write('./'))
+  .pipe(maps.write())
   .pipe(gulp.dest("dist/js")) //app.js 放到某個位置(js資料夾裡面)
+});
+
+gulp.task("getAssets", function (){
+  gulp.src([
+    'lib/photoswipe/dist/default-skin/**'])
+    .pipe(gulp.dest("dist/css"));
 });
 
 gulp.task("minifyScripts", ["concatScripts"], function (){
@@ -31,17 +41,31 @@ gulp.task("minifyScripts", ["concatScripts"], function (){
     .pipe(connect.reload());
 });
 
-gulp.task("compileSass", function (){
+gulp.task("Sass", function (){
   return gulp.src("sass/style.scss")
-  .pipe(maps.init())
+  .pipe(maps.init({loadMaps: true}))
   .pipe(compass({
     sass: 'sass',
+    css: 'dist/css',
     image: 'img',
-    import_path: ['lib']
+    import_path: ['lib'],
+    sourcemap: true,
+    debug : true
   }))
-  .pipe(maps.write('./')) //this path is going to be relative to our output directory ??
-  .pipe(gulp.dest("dist/css"))
+  .pipe(maps.write("./")) //this path is going to be relative to our output directory ??
+  .pipe(gulp.dest("css"))
   .pipe(connect.reload());
+});
+
+gulp.task("concatCss", ['Sass'], function () {
+  var cssStream = gulp.src([
+    'lib/photoswipe/dist/photoswipe.css',
+    'lib/photoswipe/dist/default-skin/default-skin.css',
+    'css/style.css'
+  ]);
+  return merge(cssStream)
+        .pipe(concat('style.css'))
+        .pipe(gulp.dest("dist/css"));
 });
 
 gulp.task('nunjucks', function() {
@@ -58,7 +82,7 @@ gulp.task('html', ['nunjucks'], function() {
 });
 
 gulp.task('watch', function (){
-  gulp.watch('sass/**/*.scss', ['compileSass']);
+  gulp.watch('sass/**/*.scss', ['concatCss']);
   gulp.watch('js/main.js', ['concatScripts']);
   gulp.watch('./index.html', ['build']);
   gulp.watch(['templates/**', 'pages/**'], ['nunjucks']);
@@ -76,7 +100,7 @@ gulp.task('clean', function(){
   del(['dist' ]);
 })
 
-gulp.task("build", ['html', 'concatScripts', 'compileSass'], function (){
+gulp.task("build", ['html', 'concatScripts', 'concatCss', 'getAssets'], function (){
   return gulp.src(["img/**", "fonts/**", "favicon.ico"], { base: './'})
             .pipe(gulp.dest('dist'));
 });

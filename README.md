@@ -37,6 +37,17 @@
   });
 ```
 
+## photoswipe
+
+list:
+
+* photoswipe.min.js
+* photoswipe-ui-default.min.js
+* default-skin.css
+* default-skin.png
+* default-skin.svg
+* preloader.gif
+
 ## 2015.11.24 note:
 
 * templating with [nunjucks](https://mozilla.github.io/nunjucks/)
