@@ -2,5 +2,5 @@ node_modules/*
 lib
 .publish
 dist
-css/style.css
+css/
 .sass-cache/
