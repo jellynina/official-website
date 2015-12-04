@@ -40,7 +40,7 @@
   {% for photo, item in lightboxs %}
     <figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
       <a href="{{item.url}}" itemprop="contentUrl" data-size="1000x667" data-index="{{item.index}}">
-        <img src="{{item.thumb}}" height="200" width="300" itemprop="thumbnail" alt="{{item.title}}">
+        <img src="{{item.thumb}}" class="lightbox-thumb" itemprop="thumbnail" alt="{{item.title}}">
       </a>
     </figure>
   {% endfor %}
