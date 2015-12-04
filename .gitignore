@@ -3,3 +3,4 @@ lib
 .publish
 dist
 css/style.css
+.sass-cache/

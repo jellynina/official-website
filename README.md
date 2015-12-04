@@ -8,10 +8,16 @@
 
 1. ~~add template~~: 1124 done
 2. ~~favicon~~: 1125done
-3. logo with animation: studying
-4. background image animation: blocking
+3. [logo with animation](#idea:20): studying
+4. [background image animation](#idea:30): blocking
 5. Visual Design and Adjustment: **Director** decide Visual style, and content.
-6. lightbox
+6. [lightbox plugin import](#done:02): 1204 done
+
+### 素材請求：
+
+1. [簡介文案](#todo:40)
+2. [視覺素材](#todo:30)
+3. [案例相片](#todo:20)
 
 
 # Improvement:
@@ -67,7 +73,11 @@ use [gulp-data](https://www.npmjs.com/package/gulp-data) import.
 
 #### 問題：
 
-* 自動分頁？
+* [相簿自動分頁](#hack:0)？ *先手動一頁放六張照片*
+* gulp: compass 之後 加入cssStream [sourcemap](#FIXME:10)無法正常顯示
+* [gulp assets import](#todo:10): [Browsersync](http://www.browsersync.io/docs/gulp/)是否會是solution?
+* [contact us javascript](#todo:0)
+
 
 ## 2015.11.24 note:
 
