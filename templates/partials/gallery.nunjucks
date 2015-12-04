@@ -22,3 +22,6 @@
       <h3>Gallery</h3>
     </div>
   </div>
+  <div class="horizontal-scrolling" id="slide-4">
+    {% include "partials/lightbox.nunjucks" %}
+  </div>

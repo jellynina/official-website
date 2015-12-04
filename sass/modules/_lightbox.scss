@@ -1,4 +1,8 @@
 .inner-lightbox{
+  display: block;
+  position: relative;
+  width: calc(100% - 80px);
+  margin: auto;
   figure{
     display: inline-block;
   }

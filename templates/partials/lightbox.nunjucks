@@ -1,14 +1,4 @@
 <div class="picture inner-lightbox" itemscope itemtype="http://schema.org/ImageGallery">
-  <figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
-    <a href="img/lightbox/city-1.jpg" itemprop="contentUrl" data-size="1000x667" data-index="0">
-      <img src="img/lightbox/city-1-thumb.jpg" height="200" width="300" itemprop="thumbnail" alt="Beach">
-    </a>
-  </figure>
-  <figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
-      <a href="img/lightbox/city-2.jpg" itemprop="contentUrl" data-size="1000x667" data-index="1">
-          <img src="img/lightbox/city-2-thumb.jpg" height="200" width="300" itemprop="thumbnail" alt="">
-      </a>
-  </figure>
 {% set lightboxs = {
   "photo1": {
     "index" : 1,
@@ -27,6 +17,24 @@
     "title" : "office-3",
     "url" : "img/lightbox/office-3.jpg",
     "thumb" : "img/lightbox/office-3-thumb.jpg"
+  },
+  "photo4": {
+    "index" : 4,
+    "title" : "city-1",
+    "url" : "img/lightbox/city-1.jpg",
+    "thumb" : "img/lightbox/city-1-thumb.jpg"
+  },
+  "photo5": {
+    "index" : 5,
+    "title" : "city-2",
+    "url" : "img/lightbox/city-2.jpg",
+    "thumb" : "img/lightbox/city-2-thumb.jpg"
+  },
+  "photo6": {
+    "index" : 6,
+    "title" : "sea-2",
+    "url" : "img/gallery-sea1.jpg",
+    "thumb" : "img/gallery-sea1.jpg"
   }
 } %}
   {% for photo, item in lightboxs %}
@@ -36,6 +44,10 @@
       </a>
     </figure>
   {% endfor %}
+  <div class="inner-lightbox--text">
+    <h2>相簿名稱</h2>
+    <h3>說明</h3>
+  </div>
 </div>
 
 {% include "partials/PhotoSwipe.nunjucks" %}
