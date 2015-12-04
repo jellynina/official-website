@@ -62,9 +62,11 @@ gulp.task("concatCss", ['Sass'], function () {
     'lib/photoswipe/dist/photoswipe.css',
     'lib/photoswipe/dist/default-skin/default-skin.css',
     'css/style.css'
-  ]);
+  ])
+  .pipe(maps.init({loadMaps: true}));
   return merge(cssStream)
-        .pipe(concat('style.css'))
+        .pipe(concat('app.css'))
+        .pipe(maps.write("./"))
         .pipe(gulp.dest("dist/css"));
 });
 

@@ -12,11 +12,10 @@
 }
 
 .dev{
+  margin-top: 20px;
   @if $devmode {
     display: block;
   } @else {
     display: none;
   }
-
-  margin-top: 20px;
 }

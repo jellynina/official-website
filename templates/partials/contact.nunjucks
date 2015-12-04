@@ -1,8 +1,10 @@
+<div class="box">
 <h2>Contact Us</h2>
-<form class="form-contact clearfix" action="mailto:jellynina@gmail.com" method="get" enctype="text/plain">
-  <input type="text" placeholder="Your Name" required>
-  <input type="email" placeholder="Your e-mail" required>
-  <textarea placeholder="what are you want to tell us?" required></textarea>
-  <!-- <button>send</button> -->
-  <input type="submit" name="submit" value="Send">
-</form>
+  <form class="form-contact clearfix" action="mailto:jellynina@gmail.com" method="get" enctype="text/plain">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your e-mail" required>
+    <textarea placeholder="what are you want to tell us?" required></textarea>
+    <!-- <button>send</button> -->
+    <input type="submit" name="submit" value="Send">
+  </form>
+</div>

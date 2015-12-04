@@ -4,9 +4,12 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 14px;
 }
 
+header{
+  font-size: 62.5%;
+}
 body {
   color: black;
   letter-spacing: .18em;
@@ -27,9 +30,13 @@ img{
 
 @media screen and (max-width: $MQ-mobile) {
   html {
+
+  }
+
+  header{
     font-size: 50%;
   }
-  
+
   .open-menu ~ nav {
     padding: 20px 0;
   }
