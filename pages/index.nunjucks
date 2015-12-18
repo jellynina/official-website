@@ -5,13 +5,13 @@
   {% include "partials/footer.nunjucks" %}
 
   <div id="fullpage">
-    <section class="vertical-scrolling" id="home">
+    <section class="vertical-scrolling" id="home-section">
       {% include "partials/home.nunjucks" %}
     </section>
-    <section class="vertical-scrolling" id="about">
+    <section class="vertical-scrolling" id="about-section">
       {% include "partials/about.nunjucks" %}
     </section>
-    <section class="vertical-scrolling" id="service">
+    <section class="vertical-scrolling" id="service-section">
       {% include "partials/service.nunjucks" %}
     </section>
     <!-- Gallery -->
@@ -23,9 +23,9 @@
     {% include "partials/contact.nunjucks" %}
     </section>
 
-    <section class="vertical-scrolling">
-    {% include "partials/people.nunjucks" %}
-    </section>
+<!--     <section class="vertical-scrolling">
+{% include "partials/people.nunjucks" %}
+</section> -->
   </div>
 
 {% endblock %}
