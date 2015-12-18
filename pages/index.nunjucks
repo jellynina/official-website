@@ -6,21 +6,21 @@
 
   <div id="fullpage">
     <section class="vertical-scrolling" id="home-section">
-      {% include "partials/home.nunjucks" %}
+      {% include "sections/home.nunjucks" %}
     </section>
     <section class="vertical-scrolling" id="about-section">
-      {% include "partials/about.nunjucks" %}
+      {% include "sections/about.nunjucks" %}
     </section>
     <section class="vertical-scrolling" id="service-section">
-      {% include "partials/service.nunjucks" %}
+      {% include "sections/service.nunjucks" %}
     </section>
     <!-- Gallery -->
     <section class="vertical-scrolling" id="section-gallery">
-    {% include "partials/gallery.nunjucks" %}
+    {% include "sections/gallery.nunjucks" %}
     </section>
     <!-- contact -->
     <section class="vertical-scrolling" id="section-contact">
-    {% include "partials/contact.nunjucks" %}
+    {% include "sections/contact.nunjucks" %}
     </section>
 
 <!--     <section class="vertical-scrolling">

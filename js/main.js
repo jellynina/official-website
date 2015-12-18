@@ -102,6 +102,7 @@ $(document).ready(function (){
     slideSelector: '.horizontal-scrolling',
     navigation: true,
     slidesNavigation: true,
+    loopHorizontal: false,
     css3: true,
     controlArrows: true,
     anchors: ['home', 'about', 'service', 'works', 'contact'],
@@ -123,16 +124,18 @@ $(document).ready(function (){
     },
 
     onLeave: function(index, nextIndex, direction) {
-      if(index == 5) {
+      if(index == 4) {
         $('#fp-nav').show();
       }
     },
 
     afterSlideLoad: function( anchorLink, index, slideAnchor, slideIndex) {
-      if(anchorLink == 'fourthSection' && slideIndex == 1) {
+      if(index == 4 && slideIndex == 0) {
         $.fn.fullpage.setAllowScrolling(false, 'up');
-        $header_top.css('background', 'transparent');
-        $nav.css('background', 'transparent');
+        $('.fp-controlArrow').hide();
+        console.log("into works menu");
+        // $header_top.css('background', 'transparent');
+        // $nav.css('background', 'transparent');
         // $(this).css('background', '#374140');
         // $(this).find('h2').css('color', 'white');
         // $(this).find('h3').css('color', 'white');
