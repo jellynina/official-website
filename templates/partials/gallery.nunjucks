@@ -1,23 +1,35 @@
-  <div class="horizontal-scrolling" id="slide-0">
-    <div class="box">
-      <h2>台北發現劇場</h2>
-      <h3>Gallery</h3>
+  <div class="horizontal-scrolling" id="works-menu">
+    <!--要可以滑動 -->
+    <div class="project-list-box">
+      <h2>專案列表</h2>
+      <ul class="project-list paginated">
+        {% for i in range(0, 40) -%}
+        <li class="project-item">
+          <ul>
+            <li>{work.title} {{ i }}</li>
+            <li>{work.cooperation}}</li>
+            <li>{work.year}}</li>
+          </ul>
+        </li>
+        {% endfor %}
+      </ul>
+
     </div>
   </div>
   <div class="horizontal-scrolling" id="slide-1">
-    <div class="box">
+    <div class="lightbox-title">
       <h2>海洋科技博物館</h2>
       <h3>Gallery</h3>
     </div>
   </div>
   <div class="horizontal-scrolling" id="slide-2">
-    <div class="box">
+    <div class="lightbox-title">
       <h2>海洋科技博物館</h2>
       <h3>Gallery</h3>
     </div>
   </div>
   <div class="horizontal-scrolling" id="slide-3">
-    <div class="box">
+    <div class="lightbox-title">
       <h2>中正紀念堂</h2>
       <h3>Gallery</h3>
     </div>

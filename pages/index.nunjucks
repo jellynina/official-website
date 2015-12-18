@@ -23,6 +23,9 @@
     {% include "partials/contact.nunjucks" %}
     </section>
 
+    <section class="vertical-scrolling">
+    {% include "partials/people.nunjucks" %}
+    </section>
   </div>
 
 {% endblock %}

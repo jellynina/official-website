@@ -1,0 +1,47 @@
+.project-list-box{
+  width: 50%;
+  font-size: 55%;
+  color: #fff;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.project-list{
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  list-style: none;
+  padding-left: 0;;
+
+}
+
+.project-item{
+  border-bottom: 1px solid $gray;
+  li{
+    display: inline-block;
+    padding: .2em 1em;
+  }
+}
+
+
+/* pager */
+.pager {
+    text-align: center;
+    margin: 1em 0;
+}
+
+.pager span {
+    display: inline-block;
+    width: 1.8em;
+    height: 1.8em;
+    line-height: 1.8;
+    text-align: center;
+    cursor: pointer;
+    background: rgba($gray-dark, .4);
+    color: #fff;
+    margin-right: 0.5em;
+}
+
+.pager span.active {
+    background: #c00;
+}

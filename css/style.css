@@ -1563,7 +1563,7 @@ h3 {
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* SLIDENAV STYLES - fullPage.js 
+/* SLIDENAV STYLES - fullPage.js
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\000033}}
 .fp-controlArrow {
@@ -1598,26 +1598,24 @@ h3 {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000329}}
 .horizontal-scrolling .box {
+  text-align: center;
   font-size: 55%;
   width: 100%;
-  position: absolute;
-  bottom: 15%;
-  left: 0;
   text-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px;
   color: #FFF;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000340}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000338}}
 #slide-1 {
   background: url("../img/gallery-sea1.jpg") no-repeat center/cover;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000344}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000342}}
 #slide-2 {
   background: url("../img/gallery-sea2.jpg") no-repeat center/cover;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000348}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_slides\.scss}line{font-family:\0000346}}
 #slide-3 {
   background: url("../img/gallery-cks.jpg") no-repeat center/cover;
 }
@@ -1869,8 +1867,75 @@ button:focus {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_lightbox\.scss}line{font-family:\0000324}}
 .inner-lightbox--text {
-  font-size: 14px;
+  font-size: 55%;
   margin-top: 1em;
+  width: 100%;
+  text-align: center;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_lightbox\.scss}line{font-family:\0000331}}
+.lightbox-title {
+  text-align: center;
+  font-size: 55%;
+  width: 100%;
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  text-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px;
+  color: #FFF;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_projectlist\.scss}line{font-family:\000031}}
+.project-list-box {
+  width: 50%;
+  font-size: 55%;
+  color: #fff;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_projectlist\.scss}line{font-family:\000039}}
+.project-list {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  list-style: none;
+  padding-left: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_projectlist\.scss}line{font-family:\0000318}}
+.project-item {
+  border-bottom: 1px solid #756d75;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_projectlist\.scss}line{font-family:\0000320}}
+.project-item li {
+  display: inline-block;
+  padding: .2em 1em;
+}
+
+/* pager */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_projectlist\.scss}line{font-family:\0000328}}
+.pager {
+  text-align: center;
+  margin: 1em 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_projectlist\.scss}line{font-family:\0000333}}
+.pager span {
+  display: inline-block;
+  width: 1.8em;
+  height: 1.8em;
+  line-height: 1.8;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(82, 76, 82, 0.4);
+  color: #fff;
+  margin-right: 0.5em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_projectlist\.scss}line{font-family:\0000345}}
+.pager span.active {
+  background: #c00;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/status\/_display\.scss}line{font-family:\000031}}
@@ -1894,7 +1959,7 @@ button:focus {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/status\/_display\.scss}line{font-family:\0000314}}
 .dev {
   margin-top: 20px;
-  display: block;
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

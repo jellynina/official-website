@@ -1,10 +1,10 @@
-/* SLIDENAV STYLES - fullPage.js 
+/* SLIDENAV STYLES - fullPage.js
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .fp-controlArrow{
   opacity: .5;
 }
 
-#fp-nav ul li a span, 
+#fp-nav ul li a span,
 .fp-slidesNav ul li a span {
   background: white;
   width: 8px;
@@ -12,9 +12,9 @@
   margin: -4px 0 0 -4px;
 }
 
-#fp-nav ul li a.active span, 
-.fp-slidesNav ul li a.active span, 
-#fp-nav ul li:hover a.active span, 
+#fp-nav ul li a.active span,
+.fp-slidesNav ul li a.active span,
+#fp-nav ul li:hover a.active span,
 .fp-slidesNav ul li:hover a.active span {
   width: 16px;
   height: 16px;
@@ -27,11 +27,9 @@
 .horizontal-scrolling{
   position: relative;
   .box{
+    text-align: center;
     font-size: 55%;
     width: 100%;
-    position: absolute;
-    bottom: 15%;
-    left: 0;
     @include text-shadow(rgba(#000, 0.2) 0px 1px 2px);
     color: #FFF;
   }
