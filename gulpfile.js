@@ -10,6 +10,7 @@ var gulp  = require('gulp'),
   connect = require('gulp-connect'),
   nunjucksRender = require('gulp-nunjucks-render'),
   merge = require('merge-stream'),
+  plumber = require('gulp-plumber'),
   del     = require('del');
 
 
@@ -71,11 +72,12 @@ gulp.task("concatCss", ['Sass'], function () {
 });
 
 gulp.task('nunjucks', function() {
-  nunjucksRender.nunjucks.configure(['./templates/']);
+  nunjucksRender.nunjucks.configure(['./templates/','./templates/data/','./templates/partials', './templates/sections']);
   // Gets .html and .nunjucks files in pages
   return gulp.src('./pages/**/*.+(html|nunjucks)')
+  //.pipe(plumber())
   .pipe(nunjucksRender())
-  .pipe(gulp.dest('./'))
+  .pipe(gulp.dest('./'));
 });
 
 gulp.task('html', ['nunjucks'], function() {

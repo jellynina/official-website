@@ -1,6 +1,6 @@
-{% set works = {
-  "001": {
-    "anchor": "",
+{% set projects = [
+  {
+    "anchor": "T-C-1501",
     "name": "南部院區博物館展示工程—多媒體展廳、嘉義文史展廳及兒童創意中心",
     "year": 2015,
     "cooperation": "國立故宮博物院",
@@ -8,20 +8,147 @@
     "photos": []
   },
 
-  "002": {
-    "anchor": "",
-    "name": "美濃學園教育藝文館室內展示軟體及營運規劃設計委託規劃設計技術服務勞務採購",
-    "year": 2015,
-    "cooperation": "市客家事務委員會",
-    "type": "規劃設計",
+  {
+    "anchor" : "T-C-1502",
+    "name": "汐止白馬山莊別墅新建案",
+    "year": 2014,
+    "cooperation": "洪先生",
+    "type": "建築及室裝統包工程",
     "photos": []
   },
 
-  "003":{
-    "name": "史蹟館整建規劃設計暨監造計術服務採購",
-    "cooperation": "國家安全局",
+  {
+    "anchor": "D-C-1001",
+    "name": "南科分館建築(含展示設計)新建工程專案履約管理",
+    "cooperation": "國立台灣史前博物館",
+    "year": 2009,
+    "type": "專案履約管理",
+    "photos": []
+  },
 
+  {
+    "anchor": "T-C-1401",
+    "name": "常設展整體更新評估規劃暨紀念辦公室再造施作",
+    "cooperation": "國立中正紀念堂管理處",
+    "year": 2014,
+    "type": "規劃設計工程",
+    "photos": []
+  },
+
+  {
+    "anchor": "D-B-1305",
+    "name": "新莊副都心中央合署辦公大樓室內裝修工程委託暨監造服務",
+    "cooperation": "行政院客家委員會",
+    "year": 2014,
+    "type": "規劃設計監造",
+    "photos": []
+  },
+
+  {
+    "anchor": "D-C-1301",
+    "name": "農科園區亞太水族營運中心飛宇樓展示廳委託規劃設計暨監造服務",
+    "cooperation": "行政院農業委員會屏東農業生物技術園區籌備處",
+    "year": 2013,
+    "type": "規劃設計",
+    "photos": []
+
+  },
+
+  {
+    "anchor": "sea",
+    "name": "海洋科技博物館海洋科學與科技展示案展示工程",
+    "cooperation": "國立海洋科技博物館",
+    "year": 2013,
+    "type": "展示統包工程",
+    "photos": []
+  },
+
+  {
+    "anchor": "D-C-0906",
+    "name": "六堆客家文化園區行政中心暨田園餐廳室內設計規劃監造",
+    "cooperation": "行政院客委會臺灣客家文化中心",
+    "year": 2013,
+    "type": "策展、設計及監造",
+    "photos": []
+  },
+
+  {
+    "anchor": "tai-power",
+    "name": "中部電力博物館(含展示品及景觀)規劃設計",
+    "cooperation": "台灣電力(股)公司",
+    "year": "2012",
+    "type": "規劃設計",
+    "photo": []
+  },
+
+  {
+    "anchor": "D-C-0902",
+    "name": "北門遊客中心展示設計監造",
+    "cooperation": "雲嘉南濱海國家風景區管理處",
+    "year": "2010",
+    "type": "策展、設計及監造",
+    "photo": []
+  },
+
+  {
+    "anchor": "D-C-0801",
+    "name": "新館常設展覽探索與發現展廳初步設計(國際標)",
+    "cooperation": "北京中國科學技術館",
+    "year": "2009",
+    "type": "設計",
+    "photo": []
+  },
+
+  {
+    "anchor": "D-C-0802",
+    "name": "勞工博物館展示計畫暨建築修復前期規劃",
+    "cooperation": "高雄市政府勞工局",
+    "year": "2009",
+    "type": "前期規劃",
+    "photo": []
+  },
+
+  {
+    "anchor": "T-C-0306",
+    "name": "高屏溪水資源館展示系統規劃設計工程",
+    "cooperation": "水利署南區水資源局",
+    "year": "2004",
+    "type": "統包工程",
+    "photo": []
+  },
+
+  {
+    "anchor": "T-C-0205",
+    "name": "台北探索館暨環境劇場規劃設計工程",
+    "cooperation": "台北市政府新工處",
+    "year": "2004",
+    "type": "統包工程",
+    "photo": []
+  },
+
+  {
+    "anchor": "C-C-0202",
+    "name": "防災教育館室內暨展示廳工程",
+    "cooperation": "基隆市政府消防局",
+    "year": "2003",
+    "type": "設計工程",
+    "photo": []
   }
 
-  }
-%}
+] %}
+
+<div class="project-list-box">
+  <h2>專案列表</h2>
+  <ul class="project-list paginated">
+   {% for project in projects %}
+    <li class="project-item">
+      <ul>
+        <li>{{ project.name }}</li>
+        <li>{{ project.cooperation }}</li>
+        <li>{{ project.year }}</li>
+      </ul>
+    </li>
+    {% endfor %}
+  </ul>
+
+</div>

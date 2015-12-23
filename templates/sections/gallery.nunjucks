@@ -1,20 +1,7 @@
+
   <div class="horizontal-scrolling" id="works-menu">
     <!--要可以滑動 -->
-    <div class="project-list-box">
-      <h2>專案列表</h2>
-      <ul class="project-list paginated">
-        {% for i in range(0, 40) -%}
-        <li class="project-item">
-          <ul>
-            <li>{work.title} {{ i }}</li>
-            <li>{work.cooperation}}</li>
-            <li>{work.year}}</li>
-          </ul>
-        </li>
-        {% endfor %}
-      </ul>
-
-    </div>
+    {% include "data/project.nunjucks" %}
   </div>
   <div class="horizontal-scrolling" id="slide-1">
     <div class="lightbox-title">

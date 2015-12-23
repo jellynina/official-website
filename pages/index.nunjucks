@@ -16,7 +16,8 @@
     </section>
     <!-- Gallery -->
     <section class="vertical-scrolling" id="section-gallery">
-    {% include "sections/gallery.nunjucks" %}
+      {#% include "data/project.nunjucks" %#}
+      {% include "sections/gallery.nunjucks" %}
     </section>
     <!-- contact -->
     <section class="vertical-scrolling" id="section-contact">
