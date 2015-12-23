@@ -1,9 +1,12 @@
 .project-list-box{
-  width: 50%;
+  width: 86%;
   font-size: 55%;
   color: #fff;
   margin-right: auto;
   margin-left: auto;
+  @media screen and (max-width: $MQ-mobile){
+    font-size: 1em;
+  }
 }
 
 .project-list{
@@ -17,9 +20,35 @@
 
 .project-item{
   border-bottom: 1px solid $gray;
+  text-align: right;
   li{
     display: inline-block;
-    padding: .2em 1em;
+    padding: .2em .5em;
+    @media screen and (max-width: $MQ-mobile){
+      padding: .5em;
+    }
+
+    &:nth-child(1){
+      width:60%;
+      text-align: left;
+      margin-left: 0;
+      @media screen and (max-width: $MQ-mobile){
+        width: 90%;
+      }
+
+    }
+    &:nth-child(2){
+      width: 30%;
+      @media screen and (max-width: $MQ-mobile){
+        display: none;
+      }
+    }
+    &:nth-child(3){
+      width: 4%;
+      @media screen and (max-width: $MQ-mobile){
+        display: none;
+      }
+    }
   }
 }
 
@@ -43,5 +72,5 @@
 }
 
 .pager span.active {
-    background: #c00;
+    background: $brand;
 }
