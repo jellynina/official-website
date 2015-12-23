@@ -1,8 +1,5 @@
+  {% include "data/project.nunjucks" %}
 
-  <div class="horizontal-scrolling" id="works-menu">
-    <!--要可以滑動 -->
-    {% include "data/project.nunjucks" %}
-  </div>
   <div class="horizontal-scrolling" id="slide-1">
     <div class="lightbox-title">
       <h2>海洋科技博物館</h2>
