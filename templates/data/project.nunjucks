@@ -158,6 +158,19 @@
 
 {% for project in projects %}
   <div class="horizontal-scrolling" data-anchor={{ project.anchor }}>
+
+    <!-- photoswipe -->
+    <!-- for photo in projects.photos -->
+    <!--
+      photos = [{"url":"/url", "titile": "titile"}]
+   -->
+    <figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+      <a href="img/{{item.url}}" itemprop="contentUrl" data-size="1000x667" data-index="{{item.index}}">
+        <img src="{{item.thumb}}" class="lightbox-thumb" itemprop="thumbnail" alt="{{item.title}}">
+      </a>
+    </figure>
+
+
     <div class="lightbox-title">
       <h2>{{ project.name }}</h2>
       <h3>{{ project.cooperation }} | {{ project.type }}, {{ project.year }}</h3>

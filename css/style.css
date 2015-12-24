@@ -288,7 +288,7 @@ html {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\0000310}}
 header {
-  font-size: 62.5%;
+  /* font-size: 62.5%; */
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/utilities\/_reset\.scss}line{font-family:\0000313}}
@@ -1270,19 +1270,19 @@ i, .icomoon-liga {
     background-image: -moz-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.6) 100%);
     background-image: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.6) 100%);
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.6) 100%);
-    -moz-transition: all, 1.5s;
-    -o-transition: all, 1.5s;
-    -webkit-transition: all, 1.5s;
-    transition: all, 1.5s;
+    -moz-transition: all 1.5s;
+    -o-transition: all 1.5s;
+    -webkit-transition: all 1.5s;
+    transition: all 1.5s;
   }
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000331}}
 .nav-menu .is-desk li a {
   opacity: .8;
-  -moz-transition: all, 1s, ease-in-out;
-  -o-transition: all, 1s, ease-in-out;
-  -webkit-transition: all, 1s, ease-in-out;
-  transition: all, 1s, ease-in-out;
+  -moz-transition: all 0.6s ease-in-out;
+  -o-transition: all 0.6s ease-in-out;
+  -webkit-transition: all 0.6s ease-in-out;
+  transition: all 0.6s ease-in-out;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_header\.scss}line{font-family:\0000337}}
 .nav-menu .is-desk li:hover a {

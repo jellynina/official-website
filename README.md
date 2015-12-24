@@ -75,6 +75,8 @@ list:
 </ul>
 ```
 
+> 有一些很奇怪的現象：{set var = {object}}必須要跟要引用的html同一個檔案。
+
 use [gulp-data](https://www.npmjs.com/package/gulp-data) import.
 
 目前先使用inline的方式匯入資料
@@ -95,3 +97,11 @@ use [gulp-data](https://www.npmjs.com/package/gulp-data) import.
 
 * 套用photoswipe
 * `for loop` 用於撈取照片資料。
+
+
+## 2015.12.24 第一次deploy TODO
+
+* 開branch
+* menu簡化：home, service, works三項
+* 整理出有專案的照片
+* AWS Deploy
