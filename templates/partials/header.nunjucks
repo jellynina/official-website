@@ -13,18 +13,18 @@
 
       <nav class="nav-menu">
         <ul class="is-desk">
-          <li data-menuanchor="about"><a href="#about">About</a></li>
+           <!-- <li data-menuanchor="about"><a href="#about">About</a></li> -->
           <li data-menuanchor="service"><a href="#service">Service</a></li>
           <li data-menuanchor="home"><a href="#home"><span class="tdi-logo logo white"></span></a></li>
           <li data-menuanchor="works"><a href="#works">Works</a></li>
-          <li data-menuanchor="contact"><a href="#contact">Contact</a></li>
+          <!-- <li data-menuanchor="contact"><a href="#contact">Contact</a></li> -->
         </ul>
         <ul class="is-mobile" id="mobile-menu">
           <li data-menuanchor="home"><a href="#home">Home</a></li>
-          <li data-menuanchor="about"><a href="#about">About</a></li>
+          <!-- <li data-menuanchor="about"><a href="#about">About</a></li> -->
           <li data-menuanchor="service"><a href="#service">Service</a></li>
           <li data-menuanchor="works"><a href="#works">Works</a></li>
-          <li data-menuanchor="contact"><a href="#contact">Contact</a></li>
+          <!-- <li data-menuanchor="contact"><a href="#contact">Contact</a></li> -->
         </ul>
       </nav>
 

@@ -8,21 +8,20 @@
     <section class="vertical-scrolling" id="home-section">
       {% include "sections/home.nunjucks" %}
     </section>
-    <section class="vertical-scrolling" id="about-section">
+    <!-- <section class="vertical-scrolling" id="about-section">
       {% include "sections/about.nunjucks" %}
-    </section>
+    </section> -->
     <section class="vertical-scrolling" id="service-section">
       {% include "sections/service.nunjucks" %}
     </section>
     <!-- Gallery -->
     <section class="vertical-scrolling" id="section-gallery">
-      {#% include "data/project.nunjucks" %#}
       {% include "sections/gallery.nunjucks" %}
     </section>
     <!-- contact -->
-    <section class="vertical-scrolling" id="section-contact">
+    {# <section class="vertical-scrolling" id="section-contact">
     {% include "sections/contact.nunjucks" %}
-    </section>
+    </section> #}
 
 <!--     <section class="vertical-scrolling">
 {% include "partials/people.nunjucks" %}

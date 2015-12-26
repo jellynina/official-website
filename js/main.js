@@ -105,7 +105,7 @@ $(document).ready(function (){
     loopHorizontal: false,
     css3: true,
     controlArrows: true,
-    anchors: ['home', 'about', 'service', 'works', 'contact'],
+    anchors: ['home', 'service', 'works'],
     menu: '#menu',
     normalScrollElements: '.picture, .pswp',
     normalScrollElementTouchThreshold: 3,
