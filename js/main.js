@@ -116,6 +116,11 @@ $(document).ready(function (){
       if (index == 4) {
           $('#fp-nav').hide();
         }
+
+      if(anchorLink == 'home') {
+        $('#home-section .imgsContainer').addClass('afterLoad');
+      }
+
     },
 
     afterRender: function(){
@@ -124,8 +129,12 @@ $(document).ready(function (){
     },
 
     onLeave: function(index, nextIndex, direction) {
-      if(index == 4) {
+      if(index == 3) {
         $('#fp-nav').show();
+      }
+
+      if(index == 1) {
+        $('#service-section .imgsContainer').addClass('afterLoad');
       }
     },
 

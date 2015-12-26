@@ -69,15 +69,26 @@ h3 {
     display: block;
     position: absolute;
     z-index: 10;
-    top: 42%;
-    left: 58%;
+    top: -42%;
+    left: 158%;
     margin-top: -325px;
     margin-left: -747px;
     width: 800px;
     height: 696px;
+    @include transition(all 1s ease-in);
   }
   img{
     height: 100%;
+  }
+
+  a{
+    color: rgb(84, 4, 121);
+  }
+  .imgsContainer.afterLoad{
+    top: 42%;
+    left: 58%;
+    margin-top: -325px;
+    margin-left: -747px;
   }
 }
 
@@ -118,9 +129,16 @@ h3 {
   }
   .imgsContainer{
     position:absolute;
-    bottom: 0;
+    bottom: -100%;
     right: 0;
     z-index: 10;
+    opacity: 0;
+    @include transition(all 1.6s ease-in);
+  }
+
+  .imgsContainer.afterLoad{
+    opacity: 1;
+    bottom: 0;
   }
 
 }

@@ -9,7 +9,7 @@
       {% include "sections/home.nunjucks" %}
     </section>
     <!-- <section class="vertical-scrolling" id="about-section">
-      {% include "sections/about.nunjucks" %}
+      {# {% include "sections/about.nunjucks" %} #}
     </section> -->
     <section class="vertical-scrolling" id="service-section">
       {% include "sections/service.nunjucks" %}
@@ -24,7 +24,7 @@
     </section> #}
 
 <!--     <section class="vertical-scrolling">
-{% include "partials/people.nunjucks" %}
+{# {% include "partials/people.nunjucks" %} #}
 </section> -->
   </div>
 

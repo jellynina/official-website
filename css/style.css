@@ -374,7 +374,13 @@ img {
   font-weight: normal;
   font-style: normal;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_typo\.scss}line{font-family:\000039}}
+@font-face {
+  font-family: 'Noto Sans';
+  src: url("../fonts/NotoSansHant-Regular.otf");
+  font-weight: bold;
+  font-style: normal;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_typo\.scss}line{font-family:\0000316}}
 body {
   font-family: 'Noto Sans',helvetica, Arial, sans-serif;
 }
@@ -1476,19 +1482,34 @@ h3 {
   display: block;
   position: absolute;
   z-index: 10;
-  top: 42%;
-  left: 58%;
+  top: -42%;
+  left: 158%;
   margin-top: -325px;
   margin-left: -747px;
   width: 800px;
   height: 696px;
+  -moz-transition: all 1s ease-in;
+  -o-transition: all 1s ease-in;
+  -webkit-transition: all 1s ease-in;
+  transition: all 1s ease-in;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000380}}
 #home-section img {
   height: 100%;
 }
-
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000384}}
+#home-section a {
+  color: #540479;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000387}}
+#home-section .imgsContainer.afterLoad {
+  top: 42%;
+  left: 58%;
+  margin-top: -325px;
+  margin-left: -747px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000395}}
 #about-section {
   background: #1A2980;
   /* fallback for old browsers */
@@ -1497,13 +1518,13 @@ h3 {
   background: linear-gradient(to left, #1a2980, #26d0ce);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003100}}
 #about-section .imgsContainer {
   position: absolute;
   bottom: 0;
   z-index: 10;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\0000395}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003106}}
 #about-section .box {
   position: absolute;
   width: 55%;
@@ -1513,7 +1534,7 @@ h3 {
   color: #FFFFFF;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003117}}
 #service-section {
   background: #AA076B;
   /* fallback for old browsers */
@@ -1522,7 +1543,7 @@ h3 {
   background: linear-gradient(to left, #aa076b, #61045f);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003111}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003122}}
 #service-section .box {
   position: absolute;
   width: 55%;
@@ -1531,19 +1552,29 @@ h3 {
   z-index: 20;
   color: #FFFFFF;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003119}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003130}}
 #service-section .imgsContainer {
   position: absolute;
-  bottom: 0;
+  bottom: -100%;
   right: 0;
   z-index: 10;
+  opacity: 0;
+  -moz-transition: all 1.6s ease-in;
+  -o-transition: all 1.6s ease-in;
+  -webkit-transition: all 1.6s ease-in;
+  transition: all 1.6s ease-in;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003139}}
+#service-section .imgsContainer.afterLoad {
+  opacity: 1;
+  bottom: 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003129}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003147}}
 #section-contact {
   background: url(../img/BG-5.png) no-repeat center/cover;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003131}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/ikea-mac\/Documents\/tdiWeb\/sass\/modules\/_pages\.scss}line{font-family:\00003149}}
 #section-contact h2 {
   text-align: left;
   padding-left: 3em;
