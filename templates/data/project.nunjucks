@@ -5,6 +5,8 @@
     "year": 2015,
     "cooperation": "國立故宮博物院",
     "type": "展示統包工程",
+    "list": true,
+    "showPhoto": false,
     "photos": []
   },
 
@@ -14,6 +16,8 @@
     "year": 2014,
     "cooperation": "洪先生",
     "type": "建築及室裝統包工程",
+    "list": true,
+    "showPhoto": false,
     "photos": []
   },
 
@@ -23,6 +27,8 @@
     "cooperation": "國立台灣史前博物館",
     "year": 2009,
     "type": "專案履約管理",
+    "list": true,
+    "showPhoto": false,
     "photos": []
   },
 
@@ -32,6 +38,8 @@
     "cooperation": "國立中正紀念堂管理處",
     "year": 2014,
     "type": "規劃設計工程",
+    "list": true,
+    "showPhoto": false,
     "photos": []
   },
 
@@ -41,6 +49,8 @@
     "cooperation": "行政院客家委員會",
     "year": 2014,
     "type": "規劃設計監造",
+    "list": true,
+    "showPhoto": false,
     "photos": []
   },
 
@@ -50,6 +60,8 @@
     "cooperation": "行政院農業委員會屏東農業生物技術園區籌備處",
     "year": 2013,
     "type": "規劃設計",
+    "list": true,
+    "showPhoto": false,
     "photos": []
 
   },
@@ -60,6 +72,8 @@
     "cooperation": "國立海洋科技博物館",
     "year": 2013,
     "type": "展示統包工程",
+    "list": true,
+    "showPhoto": false,
     "photos": []
   },
 
@@ -69,6 +83,8 @@
     "cooperation": "行政院客委會臺灣客家文化中心",
     "year": 2013,
     "type": "策展、設計及監造",
+    "list": true,
+    "showPhoto": false,
     "photos": []
   },
 
@@ -78,6 +94,8 @@
     "cooperation": "台灣電力(股)公司",
     "year": "2012",
     "type": "規劃設計",
+    "list": true,
+    "showPhoto": false,
     "photo": []
   },
 
@@ -87,6 +105,8 @@
     "cooperation": "雲嘉南濱海國家風景區管理處",
     "year": "2010",
     "type": "策展、設計及監造",
+    "list": true,
+    "showPhoto": false,
     "photo": []
   },
 
@@ -96,6 +116,8 @@
     "cooperation": "北京中國科學技術館",
     "year": "2009",
     "type": "設計",
+    "list": true,
+    "showPhoto": false,
     "photo": []
   },
 
@@ -105,6 +127,8 @@
     "cooperation": "高雄市政府勞工局",
     "year": "2009",
     "type": "前期規劃",
+    "list": true,
+    "showPhoto": false,
     "photo": []
   },
 
@@ -114,6 +138,8 @@
     "cooperation": "水利署南區水資源局",
     "year": "2004",
     "type": "統包工程",
+    "list": true,
+    "showPhoto": false,
     "photo": []
   },
 
@@ -123,6 +149,8 @@
     "cooperation": "台北市政府新工處",
     "year": "2004",
     "type": "統包工程",
+    "list": true,
+    "showPhoto": false,
     "photo": []
   },
 
@@ -132,6 +160,8 @@
     "cooperation": "基隆市政府消防局",
     "year": "2003",
     "type": "設計工程",
+    "list": true,
+    "showPhoto": false,
     "photo": []
   }
 
@@ -143,13 +173,22 @@
     <h2>專案列表</h2>
     <ul class="project-list paginated">
      {% for project in projects %}
-      <li class="project-item">
-        <ul>
-          <li><a href="/#works/{{project.anchor}}">{{ project.name }}</a></li>
-          <li>{{ project.cooperation }}</li>
-          <li>{{ project.year }}</li>
-        </ul>
-      </li>
+     {% if project.list %}
+       <li class="project-item">
+         <ul>
+           {% if project.showPhoto %}
+            <li><a href="/#works/{{project.anchor}}">{{ project.name }}</a></li>
+            {% else %}
+            <li>{{ project.name }}</li>
+
+           {% endif %}
+
+           <li>{{ project.cooperation }}</li>
+           <li>{{ project.year }}</li>
+         </ul>
+       </li>
+     {% endif %}
+
       {% endfor %}
     </ul>
 
@@ -157,6 +196,9 @@
 </div>
 
 {% for project in projects %}
+{% if project.showPhoto %}
+
+
   <div class="horizontal-scrolling" data-anchor={{ project.anchor }}>
 
     <!-- photoswipe -->
@@ -176,8 +218,8 @@
       <h3>{{ project.cooperation }} | {{ project.type }}, {{ project.year }}</h3>
     </div>
     <div class="fixedBack">
-      <a href="/#works">Back to List</a>
+      <a href="/#works"><i class="icon-arrow-left2"></i> Back to List</a>
     </div>
   </div>
-
+{% endif %}
 {% endfor %}

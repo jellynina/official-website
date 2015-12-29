@@ -139,7 +139,7 @@ $(document).ready(function (){
     },
 
     afterSlideLoad: function( anchorLink, index, slideAnchor, slideIndex) {
-      if(index == 4 && slideIndex == 0) {
+      if(index == 3 && slideIndex == 0) {
         $.fn.fullpage.setAllowScrolling(false, 'up');
         $('.fp-controlArrow').hide();
         console.log("into works menu");

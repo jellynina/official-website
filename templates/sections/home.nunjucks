@@ -1,6 +1,6 @@
 <div class="wrap">
   <div class="imgsContainer">
-    <img src="img/img00.png">
+    <img src="img/img-bg.png" class="img-bg">
   </div>
   <div class="box">
     <h2>TDI沅禧集團</h2>
